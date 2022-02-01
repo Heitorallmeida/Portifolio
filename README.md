@@ -1,6 +1,6 @@
 # Portifolio em React
 
-##Projeto base para aulas
+## Projeto base para aulas
 
 ### Para rodar use
 
