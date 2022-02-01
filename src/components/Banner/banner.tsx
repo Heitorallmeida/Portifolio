@@ -1,16 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
 import * as S from './styles';
-import Particles from "react-tsparticles";
 import imagem from "../../assets/Eu.jpeg";
-import { nodeModuleNameResolver } from "typescript";
 
 
 
 function Banner(){
     const [primeiroTexto, setPrimeiroTexto] = React.useState("");
     const [segundoTexto, setSegundoTexto] = React.useState("");
-    const [loading, setLoading] = React.useState(false);
     const texto: string = "Olá, Sou Heitor Almeida";
     var indice: number = 1;
 
