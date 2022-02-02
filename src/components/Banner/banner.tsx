@@ -1,7 +1,7 @@
+import imagem from "../../assets/eu.jpeg";
 import React from "react";
 import { useEffect } from "react";
 import * as S from './styles';
-import imagem from "../../assets/Eu.jpeg";
 
 
 
@@ -27,13 +27,14 @@ function Banner(){
     },[]);
 
     return(
-        <S.container>
+        <S.bannerContainer>
             <div>{
             <S.particles
               id="tsparticles"
-              style= {{position: "inherit", color: "white"}}
+              style= {{position: "relative", color: "white"}}
               canvasClassName ={"canvas"}
               options={{
+                style: {position: "relative"},
                 fpsLimit: 60,
                 position: "initial",
                 background: {
@@ -104,7 +105,7 @@ function Banner(){
               {segundoTexto}
             </S.bannerSecondTitleText>
         </div>
-        </S.container>
+        </S.bannerContainer>
         
     );
 }

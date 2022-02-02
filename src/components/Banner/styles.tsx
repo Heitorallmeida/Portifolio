@@ -17,10 +17,8 @@ export const particles = styled(Particles)`
     margin-top: 0;
     display: flex;
     flex-direction: row;
-    & .canvas{
-       position: relative !important;
-    }
 `;
+
 
 export const bannerTitleText = styled(Typography)`
     top: 4rem;
@@ -35,7 +33,7 @@ export const bannerSecondTitleText = styled(Typography)`
     position: absolute;
     top: 9.5rem;
 `
-export const container = styled(Container)`
+export const bannerContainer = styled(Container)`
     padding: 0;
     max-width: inherit;
     height: 50vh;
