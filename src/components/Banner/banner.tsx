@@ -9,22 +9,25 @@ function Banner(){
     const [primeiroTexto, setPrimeiroTexto] = React.useState("");
     const [segundoTexto, setSegundoTexto] = React.useState("");
     const texto: string = "Olá, Sou Heitor Almeida";
-    var indice: number = 1;
-
-
-    const processaTexto = () =>{
+    
+    
+    useEffect(()=>{
+      var indice = 1;
+      const processaTexto = () =>{
         if(indice <= 4){
           setPrimeiroTexto(texto.substring(0,indice));
-          indice = indice +1;
+          indice = indice + 1;
         } else if(indice <= texto.length){
           setSegundoTexto(texto.substring(5,indice));
-          indice = indice +1;
+          indice = indice + 1;
         }
-    }
-
-    useEffect(()=>{
-    setInterval(processaTexto,150);
+      };
+      setInterval(processaTexto,150);    
     },[]);
+
+    
+
+    
 
     return(
         <S.bannerContainer>

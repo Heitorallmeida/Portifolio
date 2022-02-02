@@ -1,5 +1,4 @@
 
-import React, { useState } from 'react';
 import './App.css';
 import Banner from './components/Banner/banner';
 import Courses from './components/Courses/courses';
