@@ -10,11 +10,11 @@ function Courses (){
 
     const courses = [
         {name: "Angular", imagem: alura},
+        {name: "Big Data", imagem: huawei},
         {name: "Flutter", imagem: alura},
         {name: "MicroServices", imagem: alura},
-        {name: "Ux", imagem: alura},
-        {name: "Big Data", imagem: huawei},
-        {name: "Ciencia de dados", imagem: igti}
+        {name: "Ciencia de dados", imagem: igti},
+        {name: "Ux", imagem: alura}
     ];
 
     return(
