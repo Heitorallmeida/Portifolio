@@ -4,35 +4,70 @@ import styled from 'styled-components';
 const color = 'blue';
 
 export const boxAngular = styled.div`
+    @keyframes angular {
+        from {width: 0%;}
+        to {width: 60%;}
+    }
+    animation-name: ${props => props.animation};
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    width: 0%;
     background-color: ${color};
-    width: 60%;
     height: inherit;
     border-radius: 5px;
 `;
 export const boxFlutter = styled.div`
+    @keyframes flutter {
+        from {width: 0%;}
+        to {width: 30%;}
+    }
+    animation-name: ${props => props.animation};
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    width: 0%;
     background-color: lightblue;
-    width: 30%;
     height: inherit;
     border-radius: 5px;
 `;
 
 export const boxJava = styled.div`
+    @keyframes java {
+        from {width: 0%;}
+        to {width: 60%;}
+    }
+    animation-name: ${props => props.animation};
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    width: 0%;
     background-color: yellow;
-    width: 60%;
     height: inherit;
     border-radius: 5px;
 `;
 
 export const boxRails = styled.div`
+    @keyframes rails {
+        from {width: 0%;}
+        to {width: 37%;}
+    }
+    animation-name: ${props => props.animation};
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    width: 0%;
     background-color: mediumorchid;
-    width: 37%;
     height: inherit;
     border-radius: 5px;
 `;
 
 export const boxReact = styled.div`
+    @keyframes react {
+        from {width: 0%;}
+        to {width: 90%;}
+    }
+    animation-name: ${props => props.animation};
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    width: 0%;
     background-color: red;
-    width: 90%;
     height: inherit;
     border-radius: 5px;
 `;
@@ -58,13 +93,19 @@ export const div = styled.div`
 export const defaultBox = styled.div`
     height: 1rem;
     width: 40vw;
-    background-color: lightgray;
+    background-color: #fdfdfd;
     border-radius: 5px;
     margin-left: 1rem;  
 `;
 
 export const firstText = styled(Typography)`
-    margin: 3rem;
+    @keyframes animation {
+        from {margin: 0rem;}
+        to {margin: 3rem;}
+    }
+    animation-name: ${props => props.animation};
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
     font-weight: bold;
 
 `;

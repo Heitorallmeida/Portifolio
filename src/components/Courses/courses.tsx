@@ -25,13 +25,13 @@ function Courses (){
                 </S.certificados>
                 <S.coursesContainer>
                     {
-                        courses.map((element, key)=>{
-                            return <>
-                                        <CourseItem 
+                        courses.map((element, index)=>{
+                            return (<CourseItem 
+                                            key = {index}
                                             nome = {element.name}
                                             imagem={element.imagem}
-                                        />
-                                    </>
+                                        ></CourseItem>)
+                                    
                         })
                     }
                 </S.coursesContainer>
