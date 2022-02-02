@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
-const color = 'blue';
 
 export const boxAngular = styled.div`
     @keyframes angular {
@@ -12,7 +11,7 @@ export const boxAngular = styled.div`
     animation-fill-mode: forwards;
     animation-duration: 1s;
     width: 0%;
-    background-color: ${color};
+    background-color: #d60029;
     height: inherit;
     border-radius: 5px;
 `;
@@ -25,7 +24,7 @@ export const boxFlutter = styled.div`
     animation-fill-mode: forwards;
     animation-duration: 1s;
     width: 0%;
-    background-color: lightblue;
+    background-color: #31b9f5;
     height: inherit;
     border-radius: 5px;
 `;
@@ -39,7 +38,7 @@ export const boxJava = styled.div`
     animation-fill-mode: forwards;
     animation-duration: 1s;
     width: 0%;
-    background-color: yellow;
+    background-color: #5382a1;
     height: inherit;
     border-radius: 5px;
 `;
@@ -53,7 +52,7 @@ export const boxRails = styled.div`
     animation-fill-mode: forwards;
     animation-duration: 1s;
     width: 0%;
-    background-color: mediumorchid;
+    background-color: #982633;
     height: inherit;
     border-radius: 5px;
 `;
@@ -67,7 +66,7 @@ export const boxReact = styled.div`
     animation-fill-mode: forwards;
     animation-duration: 1s;
     width: 0%;
-    background-color: red;
+    background-color: #61dafb;
     height: inherit;
     border-radius: 5px;
 `;
