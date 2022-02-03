@@ -71,10 +71,10 @@ export const boxReact = styled.div`
     border-radius: 5px;
 `;
 
-export const column = styled.div`
+export const skillsWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    
+    align-self: center;
 `;
 
 export const divider = styled.hr`
@@ -86,6 +86,9 @@ export const div = styled.div`
     padding-right: 4rem;
     display: flex;
     flex-direction: row;
+    @media (max-width: 890px){
+        flex-direction: column;
+    }
     background: linear-gradient(to left, #1d2b64, #f8cdda);
     box-shadow: 4px 4px 4px #ffe3ec;
 `;
@@ -95,6 +98,7 @@ export const defaultBox = styled.div`
     background-color: #fdfdfd;
     border-radius: 5px;
     margin-left: 1rem;  
+    align-self: center;
 `;
 
 export const firstText = styled(Typography)`
@@ -108,7 +112,7 @@ export const firstText = styled(Typography)`
     font-weight: bold;
 
 `;
-export const labelColumn = styled.div`
+export const titleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 4rem;
@@ -119,6 +123,9 @@ export const row = styled.div`
     display: flex;
     flex-direction: row;
     margin: 0.5rem;
+    @media (max-width: 800px){
+        justify-content: space-evenly;
+    }
 `;
 
 export const secondText = styled(Typography)`

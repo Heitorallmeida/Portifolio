@@ -2,21 +2,13 @@ import { Container, Typography } from '@material-ui/core';
 import Particles from 'react-tsparticles';
 import styled from 'styled-components';
 
-export const banner = styled(Typography)`
-    background-color: #151813;
-    height: 60vh;
-    margin-top: 0;
-    display: flex;
-    flex-direction: row;
-`;
-
 export const particles = styled(Particles)`
     background-color: #151813;
     height: 60vh !important;
     position: relative !important;
     margin-top: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 
@@ -25,10 +17,18 @@ export const bannerTitleText = styled(Typography)`
     color: white;
     position: absolute;
     left: 32vh;
+    @media (max-width: 600px)
+    {
+        left: 5vh;
+    }
 `;
 
 export const bannerSecondTitleText = styled(Typography)`
     left: 35vh;
+    @media (max-width: 600px)
+    {
+        left: 8vh;
+    }
     color: white;
     position: absolute;
     top: 9.5rem;
@@ -43,6 +43,11 @@ export const image = styled.img`
     padding: 2rem;
     border-radius: 50px;
     width: 25vh;
+    @media (max-width: 600px)
+    {
+        width: 0vh;
+    }
+    
     position: absolute;
     top: 2rem;
 `

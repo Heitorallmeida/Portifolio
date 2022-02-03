@@ -25,15 +25,15 @@ function Skills (){
     return(
         <>
             <S.div>
-                <S.column ref = {inputEl}>
+                <S.titleWrapper ref = {inputEl}>
                     <S.firstText variant = "h2" animation ={activeAnimation ? "animation" : "none"}>
                         Hard
                     </S.firstText>
                     <S.secondText variant = "h2" animation ={activeAnimation ? "animation" : "none"}>
                         Skills
                     </S.secondText>
-                </S.column>
-                <S.labelColumn>
+                </S.titleWrapper>
+                <S.skillsWrapper>
                     <S.row>
                         <S.skill variant = "h6">
                             Angular
@@ -79,7 +79,7 @@ function Skills (){
                             </S.boxFlutter> 
                         </S.defaultBox>
                     </S.row>
-                </S.labelColumn>
+                </S.skillsWrapper>
             </S.div>
         </>
     );

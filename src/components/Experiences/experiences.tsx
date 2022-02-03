@@ -11,6 +11,9 @@ const useStyles = makeStyles({
     row: {
       display: 'flex',
       flexDirection: 'row',
+      '@media (max-width: 600px)': {
+        flexDirection: 'column',
+      },
     },
     experiencesWrapper: {
         background: "linear-gradient(to right, #ece9e6, #fff)"
