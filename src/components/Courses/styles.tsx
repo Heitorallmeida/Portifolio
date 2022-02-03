@@ -13,7 +13,7 @@ export const certificados = styled(Typography)`
 export const container = styled.div`
     padding: 2rem;
     display:flex;
-    @media (max-width: 600px)
+    @media (max-width: 850px)
     {
         flex-direction: column;
         align-items: center;
@@ -23,7 +23,7 @@ export const container = styled.div`
 export const coursesContainer = styled.div`
     min-width: 50vw;
     display: flex;
-    @media (max-width: 600px)
+    @media (max-width: 850px)
     {
         flex-direction: column;
         align-items: center;

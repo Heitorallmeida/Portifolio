@@ -75,9 +75,7 @@ export const skillsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-self: center;
-    @media(max-width: 320px){
-        width: 100vw;
-    }
+    width: 100vw;
 `;
 
 export const divider = styled.hr`
@@ -122,7 +120,7 @@ export const titleWrapper = styled.div`
     flex-direction: column;
     margin-top: 4rem;
     margin-left: 4rem;  
-    @media(max-width: 320px){
+    @media(max-width: 500px){
         margin-top: 2rem;
         margin-left: 2rem;  
     }
