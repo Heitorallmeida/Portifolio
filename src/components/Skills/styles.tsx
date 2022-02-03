@@ -75,6 +75,9 @@ export const skillsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-self: center;
+    @media(max-width: 320px){
+        width: 100vw;
+    }
 `;
 
 export const divider = styled.hr`
@@ -88,6 +91,8 @@ export const div = styled.div`
     flex-direction: row;
     @media (max-width: 890px){
         flex-direction: column;
+        padding-left: 0rem;
+        padding-right: 0rem;
     }
     background: linear-gradient(to left, #1d2b64, #f8cdda);
     box-shadow: 4px 4px 4px #ffe3ec;
@@ -117,6 +122,10 @@ export const titleWrapper = styled.div`
     flex-direction: column;
     margin-top: 4rem;
     margin-left: 4rem;  
+    @media(max-width: 320px){
+        margin-top: 2rem;
+        margin-left: 2rem;  
+    }
 `;
 
 export const row = styled.div`

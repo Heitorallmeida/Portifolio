@@ -5,6 +5,9 @@ export const certificados = styled(Typography)`
     margin: 2.5rem;
     margin-top: 5rem;
     font-weight: bold;
+    @media(max-width:320px){
+        font-size: 3rem;
+    }
 `;
 
 export const container = styled.div`
