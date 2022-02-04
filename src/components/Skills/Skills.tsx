@@ -11,7 +11,7 @@ function Skills (){
         const position = window.pageYOffset;
         if(inputEl?.current?.offsetTop !== undefined){
             const divPosition = inputEl?.current?.offsetTop - inputEl?.current?.scrollHeight;
-            if((position+100 > divPosition)){
+            if((position*1.5 > divPosition)){
                 setActiveAnimation(true);
                 window.removeEventListener('scroll', handleScroll);
             }

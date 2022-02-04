@@ -92,7 +92,7 @@ export const div = styled.div`
         padding-left: 0rem;
         padding-right: 0rem;
     }
-    background: linear-gradient(to left, #1d2b64, #f8cdda);
+    background: linear-gradient(to right, #1d4350, #a43931);
     box-shadow: 4px 4px 4px #ffe3ec;
 `;
 export const defaultBox = styled.div`
@@ -113,6 +113,7 @@ export const firstText = styled(Typography)`
     animation-fill-mode: forwards;
     animation-duration: 1s;
     font-weight: bold;
+    color: white;
 
 `;
 export const titleWrapper = styled.div`
@@ -138,13 +139,13 @@ export const row = styled.div`
 export const secondText = styled(Typography)`
     margin: 1rem 2rem 2rem 4rem;
     font-weight: bold;
-    color: #F71735;
+    color: #f40021;
 `;
 
 export const skill = styled(Typography)`
     font-weight: bold;
     width: 7vw;
-    color:#131a3c;
+    color: white;
 `;
 
 export const smallDivider = styled.hr`
