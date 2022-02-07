@@ -1,9 +1,13 @@
-import { Typography } from '@material-ui/core';
+
 import './App.css';
-import Banner from './components/banner';
-import Experiences from './components/experiences';
+import Banner from './components/Banner/banner';
+import Courses from './components/Courses/courses';
+import Experiences from './components/Experiences/experiences';
+import Footer from './components/Footer/Footer';
 import  NavBar from './components/nav';
 import Skills from './components/Skills/Skills';
+
+
 
 function App() {
 
@@ -11,11 +15,11 @@ function App() {
     <>
       <NavBar></NavBar>
       <Banner></Banner>
-      <Typography variant="h3" component="h2" style={{'fontWeight': 'bold', 'textAlign':'center', 'marginTop': '1rem'}}>Experiências</Typography>
-      <Typography variant="h4" component="h2" style={{'fontWeight': 'bold', 'textAlign':'center', 'marginTop': '1rem'}}>Iniciou Engenharia de Computação</Typography>
       <Experiences></Experiences>
       <Skills></Skills>
-    </>
+      <Courses></Courses>
+      <Footer></Footer>
+    </> 
   );
 }
 
