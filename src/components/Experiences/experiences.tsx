@@ -5,6 +5,7 @@ import nti from "../../assets/nti.jpg";
 import accio from "../../assets/accio.png";
 import edge from "../../assets/edge.png";
 import vitalis from "../../assets/vitalis.png";
+import sambatech from "../../assets/sambatech.jpg";
 import { Typography } from "@material-ui/core";
 import { ExperiencesWrapper, Row } from "./styles";
 
@@ -26,14 +27,21 @@ function Experiences() {
         Iniciou Engenharia de Computação
       </Typography>
       <Row>
-        <ExperienceItem nome="Bolsista" imagem={propep}></ExperienceItem>
-        <ExperienceItem nome="" imagem={ufal}></ExperienceItem>
-        <ExperienceItem nome="Dev Full Stack" imagem={nti}></ExperienceItem>
+        <ExperienceItem name="Bolsista" image={propep}></ExperienceItem>
+        <ExperienceItem name="" image={ufal}></ExperienceItem>
+        <ExperienceItem name="Dev Full Stack" image={nti}></ExperienceItem>
       </Row>
       <Row>
-        <ExperienceItem nome="Dev Full Stack" imagem={accio}></ExperienceItem>
-        <ExperienceItem nome="Dev Front End" imagem={edge}></ExperienceItem>
-        <ExperienceItem nome="Dev Front End" imagem={vitalis}></ExperienceItem>
+        <ExperienceItem name="Dev Full Stack" image={accio}></ExperienceItem>
+        <ExperienceItem name="Dev Front End" image={edge}></ExperienceItem>
+        <ExperienceItem name="Dev Front End" image={vitalis}></ExperienceItem>
+      </Row>
+      <Row>
+        <ExperienceItem
+          name="Dev Frontend"
+          image={sambatech}
+          current={true}
+        ></ExperienceItem>
       </Row>
     </ExperiencesWrapper>
   );
