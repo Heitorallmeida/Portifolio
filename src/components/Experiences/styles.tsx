@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
-export const row = styled.div`
-  display: "flex";
-  flex-direction: "row";
-  flex-wrap: wrap;
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
   @media (max-width: 600px) {
-    flex-direction: "column";
+    flex-wrap: wrap;
   }
 `;
 
-export const experiencesWrapper = styled.div`
+export const ExperiencesWrapper = styled.div`
   background: "linear-gradient(to right, #ece9e6, #fff)";
 `;

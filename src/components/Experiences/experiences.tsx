@@ -6,11 +6,11 @@ import accio from "../../assets/accio.png";
 import edge from "../../assets/edge.png";
 import vitalis from "../../assets/vitalis.png";
 import { Typography } from "@material-ui/core";
-import { experiencesWrapper, row } from "./styles";
+import { ExperiencesWrapper, Row } from "./styles";
 
 function Experiences() {
   return (
-    <div className={experiencesWrapper}>
+    <ExperiencesWrapper>
       <Typography
         variant="h3"
         component="h2"
@@ -25,17 +25,17 @@ function Experiences() {
       >
         Iniciou Engenharia de Computação
       </Typography>
-      <div className={row}>
+      <Row>
         <ExperienceItem nome="Bolsista" imagem={propep}></ExperienceItem>
         <ExperienceItem nome="" imagem={ufal}></ExperienceItem>
         <ExperienceItem nome="Dev Full Stack" imagem={nti}></ExperienceItem>
-      </div>
-      <div className={row}>
+      </Row>
+      <Row>
         <ExperienceItem nome="Dev Full Stack" imagem={accio}></ExperienceItem>
         <ExperienceItem nome="Dev Front End" imagem={edge}></ExperienceItem>
         <ExperienceItem nome="Dev Front End" imagem={vitalis}></ExperienceItem>
-      </div>
-    </div>
+      </Row>
+    </ExperiencesWrapper>
   );
 }
 
