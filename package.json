@@ -2,7 +2,7 @@
   "name": "portifolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://heitorallmeida.github.io/portifolio",
+  "homepage": "https://heitorallmeida.github.io/Portifolio",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
