@@ -8,8 +8,10 @@ import vitalis from "../../assets/vitalis.png";
 import sambatech from "../../assets/sambatech.jpg";
 import { Typography } from "@material-ui/core";
 import { ExperiencesWrapper, Row } from "./styles";
+import useLanguage from "../../hooks/useLanguage";
 
 function Experiences() {
+  const { language } = useLanguage();
   return (
     <ExperiencesWrapper>
       <Typography
@@ -17,25 +19,29 @@ function Experiences() {
         component="h2"
         style={{ fontWeight: "bold", textAlign: "center", marginTop: "6rem" }}
       >
-        Experiências
+        {language === "pt-BR" ? "Experiências" : "Experiences"}
       </Typography>
       <Typography
         variant="h4"
         component="h2"
         style={{ fontWeight: "bold", textAlign: "center", marginTop: "1rem" }}
       >
-        Iniciou Engenharia de Computação
+        {language === "pt-BR"
+          ? "Iniciou Engenharia de Computação"
+          : "Started Computer Engineering"}
       </Typography>
       <Row>
         <ExperienceItem name="Bolsista" image={propep}></ExperienceItem>
         <ExperienceItem name="" image={ufal}></ExperienceItem>
         <ExperienceItem name="Dev Full Stack" image={nti}></ExperienceItem>
       </Row>
+      <hr />
       <Row>
         <ExperienceItem name="Dev Full Stack" image={accio}></ExperienceItem>
         <ExperienceItem name="Dev Front End" image={edge}></ExperienceItem>
         <ExperienceItem name="Dev Front End" image={vitalis}></ExperienceItem>
       </Row>
+      <hr />
       <Row>
         <ExperienceItem
           name="Dev Frontend"

@@ -11,7 +11,7 @@ export const CardStyle = styled(Card)`
   border-width: ${({ current = false }) => (current ? "thin" : "none")};
   border-color: ${({ current = false }) =>
     current ? "cornflowerblue" : "none"};
-  &hover {
+  &:hover {
     box-shadow: 5px 5px gray;
   }
 `;

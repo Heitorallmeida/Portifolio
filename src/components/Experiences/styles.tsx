@@ -10,4 +10,7 @@ export const Row = styled.div`
 
 export const ExperiencesWrapper = styled.div`
   background: "linear-gradient(to right, #ece9e6, #fff)";
+  hr {
+    margin: 0 2rem 1rem 2rem;
+  }
 `;

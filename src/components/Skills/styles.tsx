@@ -139,6 +139,20 @@ export const firstText = styled(Typography)`
   font-weight: bold;
   color: white;
 `;
+
+export const markRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem;
+  margin-left: 3vw;
+  width: 45vw;
+  justify-content: space-between;
+  text-align: end;
+  @media (max-width: 800px) {
+    margin-left: 37vw;
+  }
+`;
+
 export const titleWrapper = styled.div`
   display: flex;
   flex-direction: column;

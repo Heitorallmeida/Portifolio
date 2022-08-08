@@ -1,13 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { CardContent, Typography } from "@material-ui/core";
 import { CardMediaStyled, CardStyle } from "./styles";
-
-const useStyles = makeStyles({});
 
 interface ExperienceItemProps {
   name: string;
