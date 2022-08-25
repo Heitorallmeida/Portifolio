@@ -2,7 +2,7 @@ import alura from "../../assets/alura.jpg";
 import huawei from "../../assets/huawei.jpg";
 import igti from "../../assets/igti.jpg";
 import * as S from "./styles";
-import CourseItem from "./courseItem";
+import CourseItem from "./components/courseItem";
 import useLanguage from "../../hooks/useLanguage";
 
 function Courses() {

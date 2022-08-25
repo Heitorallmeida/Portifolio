@@ -1,43 +1,42 @@
 import imagem from "../../assets/eu.jpeg";
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect } from "react";
 import * as S from "./styles";
 import useLanguage from "../../hooks/useLanguage";
 
 function Banner() {
-  const [primeiroTexto, setPrimeiroTexto] = React.useState("");
-  const [segundoTexto, setSegundoTexto] = React.useState("");
-  const [texto, setTexto] = React.useState<string>("Olá, Sou Heitor Almeida");
+  const [firstText, setFirstText] = React.useState<string>("");
+  const [secondText, setSecondText] = React.useState<string>("");
+  //const [texto, setTexto] = React.useState<string>("Olá, Sou Heitor Almeida");
+  const [renderTextInterval, setRenderTextInterval] =
+    React.useState<NodeJS.Timer>();
   const { language } = useLanguage();
 
-  const whiteText = (indice: number) => {
+  const writeText = useCallback(() => {
+    let index = 1;
+    if (renderTextInterval) {
+      clearTimeout(renderTextInterval);
+    }
+
+    const text =
+      language === "pt-BR"
+        ? "Olá, Sou Heitor Almeida"
+        : "Hi,  I'm Heitor Almeida";
     const processaTexto = () => {
-      if (indice <= 4) {
-        setPrimeiroTexto(texto.substring(0, indice));
-        indice = indice + 1;
-      } else if (indice <= texto.length) {
-        setSegundoTexto(texto.substring(5, indice));
-        indice = indice + 1;
+      if (index <= 4) {
+        setFirstText(text.substring(0, index));
+        index = index + 1;
+      } else if (index <= text.length) {
+        setSecondText(text.substring(5, index));
+        index = index + 1;
       }
     };
-    setInterval(processaTexto, 150);
-  };
+    const interval = setInterval(processaTexto, 150);
+    setRenderTextInterval(interval);
+  }, [language, renderTextInterval]);
 
   useEffect(() => {
-    var indice = 1;
-    whiteText(indice);
-  }, []);
-
-  React.useEffect(() => {
-    if (language === "pt-BR") {
-      setTexto("Olá, Sou Heitor Almeida");
-      setTimeout(() => setPrimeiroTexto("Olá,"), 3600);
-      setTimeout(() => setSegundoTexto("Sou Heitor Almeida"), 3600);
-    } else {
-      setTexto("Hi, I'm Heitor Almeida");
-      setTimeout(() => setPrimeiroTexto("Hi,"), 3600);
-      setTimeout(() => setSegundoTexto("I'm Heitor Almeida"), 3600);
-    }
+    writeText();
   }, [language]);
 
   return (
@@ -115,10 +114,10 @@ function Banner() {
         }
         <S.image src={imagem}></S.image>,
         <S.bannerTitleText variant="h2" color="secondary">
-          {primeiroTexto}
+          {firstText}
         </S.bannerTitleText>
         <S.bannerSecondTitleText variant="h2" color="secondary">
-          {segundoTexto}
+          {secondText}
         </S.bannerSecondTitleText>
       </div>
     </S.bannerContainer>
