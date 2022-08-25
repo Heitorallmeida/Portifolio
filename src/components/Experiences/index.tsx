@@ -17,14 +17,24 @@ function Experiences() {
       <Typography
         variant="h3"
         component="h2"
-        style={{ fontWeight: "bold", textAlign: "center", marginTop: "6rem" }}
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "6rem",
+          color: "white",
+        }}
       >
         {language === "pt-BR" ? "Experiências" : "Experiences"}
       </Typography>
       <Typography
         variant="h4"
         component="h2"
-        style={{ fontWeight: "bold", textAlign: "center", marginTop: "1rem" }}
+        style={{
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "1rem",
+          color: "white",
+        }}
       >
         {language === "pt-BR"
           ? "Iniciou Engenharia de Computação"

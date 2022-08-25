@@ -7,7 +7,6 @@ import useLanguage from "../../hooks/useLanguage";
 function Banner() {
   const [firstText, setFirstText] = React.useState<string>("");
   const [secondText, setSecondText] = React.useState<string>("");
-  //const [texto, setTexto] = React.useState<string>("Olá, Sou Heitor Almeida");
   const [renderTextInterval, setRenderTextInterval] =
     React.useState<NodeJS.Timer>();
   const { language } = useLanguage();

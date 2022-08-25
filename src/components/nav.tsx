@@ -7,7 +7,7 @@ import {
   Menu,
   Snackbar,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { GiBrazilFlag, GiUsaFlag } from "react-icons/gi";
 import useLanguage from "../hooks/useLanguage";
@@ -33,9 +33,9 @@ function Alert(props: AlertProps) {
 
 function NavBar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
-  const [showMessage, setShowMessage] = React.useState(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
   const { language, setLanguage } = useLanguage();
 
   const handleMailClick = () => {

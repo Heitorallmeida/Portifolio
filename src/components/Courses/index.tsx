@@ -2,7 +2,7 @@ import alura from "../../assets/alura.jpg";
 import huawei from "../../assets/huawei.jpg";
 import igti from "../../assets/igti.jpg";
 import * as S from "./styles";
-import CourseItem from "./components/courseItem";
+import CourseItem from "./components/CourseItem";
 import useLanguage from "../../hooks/useLanguage";
 
 function Courses() {
@@ -28,8 +28,8 @@ function Courses() {
             return (
               <CourseItem
                 key={index}
-                nome={element.name}
-                imagem={element.imagem}
+                name={element.name}
+                image={element.imagem}
               ></CourseItem>
             );
           })}
