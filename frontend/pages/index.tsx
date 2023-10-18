@@ -7,6 +7,7 @@ import NavBar from "../components/nav";
 import Skills from "../components/Skills";
 import { LanguageProvider } from "../context/languageContext";
 import Layout from "./layout";
+import { UserProvider } from "@/context/userContext";
 export default function Home() {
     const theme = createTheme({
         palette: {
@@ -18,8 +19,11 @@ export default function Home() {
           },
         },
       });
+
+   
   return (
     <ThemeProvider theme={theme}>
+      <UserProvider>
         <LanguageProvider>
             <Layout>
               <NavBar />
@@ -30,6 +34,7 @@ export default function Home() {
               <Footer />
             </Layout>
         </LanguageProvider>
+        </UserProvider>
     </ThemeProvider>
   )
 }

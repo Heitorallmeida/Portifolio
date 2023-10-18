@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import * as S from "./styles";
 import useLanguage from "../../hooks/useLanguage";
 import type { Portifolio } from "@/api/portifolio/portifolio.types";
+import useUser from "@/hooks/useUser";
 
 function Banner() {
   const [firstText, setFirstText] = React.useState<string>("");
@@ -12,6 +13,7 @@ function Banner() {
   const [renderTextInterval, setRenderTextInterval] =
     React.useState<NodeJS.Timer>();
   const { language } = useLanguage();
+  const { user } = useUser();
 
   const writeText = useCallback((name: string) => {
     let index = 1;
@@ -35,21 +37,14 @@ function Banner() {
     const interval = setInterval(processaTexto, 150);
     setRenderTextInterval(interval);
   }, [language, renderTextInterval]);
-  async function getData() {
-    const res = await fetch('http://localhost:3001/portifolio/1')
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
-  }
+
   useEffect(() => {
-    getData().then((portifolio: Portifolio)=>{
-      writeText(` ${portifolio.name} ${portifolio.lastname}`);
-    });
+    if(user){
+      writeText(` ${user.name} ${user.lastname}`);
+    }
+  
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [language]);
+  }, [user]);
 
   return (
     <S.bannerContainer>

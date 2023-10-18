@@ -2,12 +2,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as S from "./styles";
 import { HardSkill, HardSkillObject } from "@/api/hardSkill/experience.type";
+import useUser from "@/hooks/useUser";
 
 function Skills() {
+  const { user } = useUser();
   const [activeAnimation, setActiveAnimation] = useState(false);
   const [hardSkills, setHardSkills] = useState();
 
-  const inputEl = useRef<HTMLDivElement | undefined>(null);
+
+  const inputEl = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = useCallback(() => {
     const position = window.pageYOffset;
@@ -25,20 +28,17 @@ function Skills() {
     window.addEventListener("scroll", handleScroll, { passive: true });
   }, [handleScroll]);
 
-  async function getData() {
-    const res = await fetch('http://localhost:3001/hardSkill/1')
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-    console.log(res)
-    return res.json()
-  }
+  
+
+  
   useEffect(() => {
-    getData().then((res)=>{
-      setHardSkills(res);
-    });
-  }, []);
+    if(user){
+
+      console.log(user)
+      setHardSkills(user.hardSkills)
+    }
+     
+  }, [user]);
 
   return (
     <>
@@ -46,6 +46,8 @@ function Skills() {
         <S.titleWrapper ref={inputEl}>
           <S.firstText
             variant="h2"
+            animation={"none"}
+            percentage={0}
           >
             Hard
           </S.firstText>

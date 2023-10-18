@@ -5,25 +5,21 @@ import useLanguage from "../../hooks/useLanguage";
 import { useState, useEffect } from "react";
 import { Experience } from "@/api/experience/experience.type";
 import { Portifolio } from "@/api/portifolio/portifolio.types";
+import useUser from "@/hooks/useUser";
 
 function Experiences() {
   const [experiences, setExperiences] = useState<Experience[]>();
   const { language } = useLanguage();
+  const { user } = useUser();
 
-  async function getData() {
-    const res = await fetch('http://localhost:3001/portifolio/1')
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
-  }
+  
   useEffect(() => {
-    getData().then((res: Portifolio)=>{
-     setExperiences(res.experiences)
-    });
-  }, [language]);
+    if(user){
+      setExperiences(user.experiences)
+    }
+     
+  }, [user]);
+  
   return (
     <ExperiencesWrapper>
       <Typography
