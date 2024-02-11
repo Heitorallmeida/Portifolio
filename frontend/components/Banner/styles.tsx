@@ -35,6 +35,9 @@ export const bannerContainer = styled(Container)`
   padding: 0;
   max-width: inherit;
   height: 50vh;
+  witdh: 100%;
+  max-width: 100% !important;
+  padding: 0 !important;
 `;
 
 export const image = styled(Image)`
