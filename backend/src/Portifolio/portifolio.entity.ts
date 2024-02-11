@@ -1,4 +1,5 @@
 
+import { Certificate } from 'src/Certificate/certificate.entity';
 import { Experience } from 'src/Experience/experience.entity';
 import { HardSkill } from 'src/HardSkill/hardSkill.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
@@ -14,10 +15,12 @@ export class Portifolio {
   @Column()
   lastname: string;
 
-  @OneToMany(() => Experience, (experience) => experience.portifolio) // note: we will create author property in the Photo class below
+  @OneToMany(() => Experience, (experience) => experience.portifolio) 
   experiences: Experience[]
 
-  @OneToMany(() => HardSkill, (experience) => experience.portifolio) // note: we will create author property in the Photo class below
+  @OneToMany(() => HardSkill, (hardSkills) => hardSkills.portifolio)
   hardSkills: HardSkill[]
-
+  
+  @OneToMany(() => Certificate, (certificates) => certificates.portifolio)
+  certificates: Certificate[]
 }

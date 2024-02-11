@@ -14,7 +14,7 @@ export class PortifolioService {
   }
   
   async findById(id): Promise<Portifolio> {
-    return this.portifolioRpository.findOne({where:{id: id}, relations: ['experiences', 'hardSkills']});
+    return this.portifolioRpository.findOne({where:{id: id}, relations: ['experiences', 'hardSkills', 'certificates']});
   }
 
   async create(name: string, lastname: string): Promise<Portifolio> {

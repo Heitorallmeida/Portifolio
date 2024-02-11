@@ -6,7 +6,7 @@ const useUser = () => {
   const context = useContext(UserContext);
 
   if (!context) {
-    throw new Error("useLanguage must be used within an userProvider");
+    throw new Error("useContext must be used within an userProvider");
   }
   return context;
 };

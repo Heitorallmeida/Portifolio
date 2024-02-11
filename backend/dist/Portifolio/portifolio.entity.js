@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Portifolio = void 0;
+const certificate_entity_1 = require("../Certificate/certificate.entity");
 const experience_entity_1 = require("../Experience/experience.entity");
 const hardSkill_entity_1 = require("../HardSkill/hardSkill.entity");
 const typeorm_1 = require("typeorm");
@@ -32,9 +33,13 @@ __decorate([
     __metadata("design:type", Array)
 ], Portifolio.prototype, "experiences", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => hardSkill_entity_1.HardSkill, (experience) => experience.portifolio),
+    (0, typeorm_1.OneToMany)(() => hardSkill_entity_1.HardSkill, (hardSkills) => hardSkills.portifolio),
     __metadata("design:type", Array)
 ], Portifolio.prototype, "hardSkills", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => certificate_entity_1.Certificate, (certificates) => certificates.portifolio),
+    __metadata("design:type", Array)
+], Portifolio.prototype, "certificates", void 0);
 exports.Portifolio = Portifolio = __decorate([
     (0, typeorm_1.Entity)()
 ], Portifolio);

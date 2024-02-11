@@ -1,18 +1,22 @@
 import * as S from "./styles";
 import CourseItem from "./components/CourseItem";
 import useLanguage from "../../hooks/useLanguage";
+import { useEffect, useState } from "react";
+import useUser from "@/hooks/useUser";
 
 function Courses() {
+  const [certificates, setCertificates] = useState([]);
+  const { user } = useUser();
   const { language } = useLanguage();
 
-  const courses = [
-    { name: "Angular", imagem: "/static/images//alura.jpg" },
-    { name: "Big Data", imagem: "/static/images//huawei.jpg" },
-    { name: "Flutter", imagem: "/static/images//alura.jpg" },
-    { name: "MicroServices", imagem: "/static/images//alura.jpg" },
-    { name: "Ciencia de dados", imagem:  "/static/images//igti.jpg" },
-    { name: "Ux", imagem: "/static/images//alura.jpg" },
-  ];
+
+  
+  useEffect(() => {
+    if(user){
+      setCertificates(user.certificates)
+    }
+     
+  }, [user]);
 
   return (
     <>
@@ -21,15 +25,15 @@ function Courses() {
           {language === "pt-BR" ? "Certificados" : "Certificates"}
         </S.certificados>
         <S.coursesContainer>
-          {courses.map((element, index) => {
-            return (
+          {certificates.map((element: any, index) => 
+             (
               <CourseItem
                 key={index}
                 name={element.name}
                 image={element.imagem}
-              ></CourseItem>
-            );
-          })}
+              />
+            )
+        )}
         </S.coursesContainer>
       </S.container>
     </>

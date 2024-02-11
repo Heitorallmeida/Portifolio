@@ -24,7 +24,7 @@ let PortifolioService = exports.PortifolioService = class PortifolioService {
         return this.portifolioRpository.find();
     }
     async findById(id) {
-        return this.portifolioRpository.findOne({ where: { id: id }, relations: ['experiences', 'hardSkills'] });
+        return this.portifolioRpository.findOne({ where: { id: id }, relations: ['experiences', 'hardSkills', 'certificates'] });
     }
     async create(name, lastname) {
         const portifolio = new portifolio_entity_1.Portifolio();

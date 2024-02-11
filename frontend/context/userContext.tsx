@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 interface IUserProvider {
   user: any;
   setUser: React.Dispatch<React.SetStateAction<any>>;
+  isLoading: boolean;
 }
 
 export const UserContext = createContext<IUserProvider>(
@@ -17,6 +18,7 @@ type UserProviderProps = {
 }
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter()
   const { id } = router.query
 
@@ -43,6 +45,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
 
     setUser({...user, hardSkills: resultado});
+    setIsLoading(false);
   },[id])
 
   useEffect(()=>{
@@ -50,7 +53,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, [getData])
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoading }}>
       {children}
     </UserContext.Provider>
   );
