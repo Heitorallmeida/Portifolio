@@ -26,14 +26,12 @@ export default function Home() {
       <UserProvider>
         <LanguageProvider>
             <Layout>
-              <>
                 <NavBar />
                 <Banner />
                 <Experiences />
                 <Skills />
                 <Courses />
                 <Footer />
-              </>
             </Layout>
         </LanguageProvider>
         </UserProvider>
