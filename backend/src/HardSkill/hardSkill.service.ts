@@ -104,7 +104,8 @@ export class HardSkillService {
   }
 
   async findOne(id: number): Promise<{ [title: string]: number; }>{
-    const hardSkills = await this.hardSkillRepository.find({where: {portifolio: {id: id}}});
+    const portifolio = await this.portifolioRepository.findOne({where:  {id: id}});
+    const hardSkills = await this.hardSkillRepository.find({where: {portifolio: portifolio}});
 
     const resultado = hardSkills.reduce((acc, objeto) => {
       const { title, percentage } = objeto;

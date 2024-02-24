@@ -14,10 +14,14 @@ import { HardSkillController } from './HardSkill/hardSkill.controller';
 import { HardSkillModule } from './HardSkill/hardSkill.module';
 import { HardSkillService } from './HardSkill/hardSkill.service';
 import { hardSkillProviders } from './HardSkill/hardSkill.providers';
+import { FilesModule } from './files/files.module';
+import { FilesController } from './files/files.controller';
+import { fileProviders } from './files/entities/file.providers';
+import { FilesService } from './files/files.service';
 
 @Module({
-  imports: [PortifolioModule, ExperienceModule, HardSkillModule],
-  controllers: [AppController, PortifolioController, ExperienceController, HardSkillController],
-  providers: [...portifolioProviders, ...experienceProviders, ...databaseProviders, ...hardSkillProviders,AppService, PortifolioService, ExperienceService, HardSkillService],
+  imports: [PortifolioModule, ExperienceModule, HardSkillModule, FilesModule],
+  controllers: [AppController, PortifolioController, ExperienceController, HardSkillController, FilesController],
+  providers: [...portifolioProviders, ...fileProviders, ...experienceProviders, ...databaseProviders, ...hardSkillProviders, AppService, PortifolioService, ExperienceService, HardSkillService, FilesService],
 })
 export class AppModule {}

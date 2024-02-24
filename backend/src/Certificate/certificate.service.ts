@@ -63,7 +63,8 @@ export class CertificateService {
   }
 
   async findOne(id: number): Promise<Certificate[]>{
-    const certificate = await this.certificateRepository.find({where: {portifolio: {id: id}}});
+    const portifolio = await this.portifolioRepository.findOne({where:  {id: id}});
+    const certificate = await this.certificateRepository.find({where: {portifolio: portifolio}});
 
    return certificate
   }
