@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Experience = void 0;
 const portifolio_entity_1 = require("../Portifolio/portifolio.entity");
 const typeorm_1 = require("typeorm");
-let Experience = exports.Experience = class Experience {
+let Experience = class Experience {
 };
+exports.Experience = Experience;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)

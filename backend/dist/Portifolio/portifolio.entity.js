@@ -14,8 +14,9 @@ const certificate_entity_1 = require("../Certificate/certificate.entity");
 const experience_entity_1 = require("../Experience/experience.entity");
 const hardSkill_entity_1 = require("../HardSkill/hardSkill.entity");
 const typeorm_1 = require("typeorm");
-let Portifolio = exports.Portifolio = class Portifolio {
+let Portifolio = class Portifolio {
 };
+exports.Portifolio = Portifolio;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)

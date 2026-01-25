@@ -16,7 +16,7 @@ exports.ExperienceController = void 0;
 const common_1 = require("@nestjs/common");
 const experience_service_1 = require("./experience.service");
 const create_experience_1 = require("../dto/create-experience");
-let ExperienceController = exports.ExperienceController = class ExperienceController {
+let ExperienceController = class ExperienceController {
     constructor(experienceService) {
         this.experienceService = experienceService;
     }
@@ -34,6 +34,7 @@ let ExperienceController = exports.ExperienceController = class ExperienceContro
         return await this.experienceService.createAll(createExperiencesDto);
     }
 };
+exports.ExperienceController = ExperienceController;
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

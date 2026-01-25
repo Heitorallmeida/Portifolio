@@ -16,7 +16,7 @@ exports.PortifolioService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const portifolio_entity_1 = require("./portifolio.entity");
-let PortifolioService = exports.PortifolioService = class PortifolioService {
+let PortifolioService = class PortifolioService {
     constructor(portifolioRpository) {
         this.portifolioRpository = portifolioRpository;
     }
@@ -33,6 +33,7 @@ let PortifolioService = exports.PortifolioService = class PortifolioService {
         return await this.portifolioRpository.save(portifolio);
     }
 };
+exports.PortifolioService = PortifolioService;
 exports.PortifolioService = PortifolioService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('PORTIFOLIO_REPOSITORY')),

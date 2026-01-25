@@ -16,7 +16,7 @@ exports.CertificateController = void 0;
 const common_1 = require("@nestjs/common");
 const certificate_service_1 = require("./certificate.service");
 const create_certificate_1 = require("../dto/create-certificate");
-let CertificateController = exports.CertificateController = class CertificateController {
+let CertificateController = class CertificateController {
     constructor(certificateService) {
         this.certificateService = certificateService;
     }
@@ -37,6 +37,7 @@ let CertificateController = exports.CertificateController = class CertificateCon
         return this.certificateService.findOne(id);
     }
 };
+exports.CertificateController = CertificateController;
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

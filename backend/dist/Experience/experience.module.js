@@ -12,8 +12,9 @@ const database_module_1 = require("../database/database.module");
 const experience_providers_1 = require("./experience.providers");
 const experience_service_1 = require("./experience.service");
 const portifolio_providers_1 = require("../Portifolio/portifolio.providers");
-let ExperienceModule = exports.ExperienceModule = class ExperienceModule {
+let ExperienceModule = class ExperienceModule {
 };
+exports.ExperienceModule = ExperienceModule;
 exports.ExperienceModule = ExperienceModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DatabaseModule],

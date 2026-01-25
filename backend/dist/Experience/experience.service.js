@@ -16,7 +16,7 @@ exports.ExperienceService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const experience_entity_1 = require("./experience.entity");
-let ExperienceService = exports.ExperienceService = class ExperienceService {
+let ExperienceService = class ExperienceService {
     constructor(experienceRpository, portifolioRepository) {
         this.experienceRpository = experienceRpository;
         this.portifolioRepository = portifolioRepository;
@@ -53,6 +53,7 @@ let ExperienceService = exports.ExperienceService = class ExperienceService {
         return experiences;
     }
 };
+exports.ExperienceService = ExperienceService;
 exports.ExperienceService = ExperienceService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('EXPERIENCE_REPOSITORY')),

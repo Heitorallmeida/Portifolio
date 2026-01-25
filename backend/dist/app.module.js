@@ -23,13 +23,18 @@ const hardSkill_controller_1 = require("./HardSkill/hardSkill.controller");
 const hardSkill_module_1 = require("./HardSkill/hardSkill.module");
 const hardSkill_service_1 = require("./HardSkill/hardSkill.service");
 const hardSkill_providers_1 = require("./HardSkill/hardSkill.providers");
-let AppModule = exports.AppModule = class AppModule {
+const files_module_1 = require("./files/files.module");
+const files_controller_1 = require("./files/files.controller");
+const file_providers_1 = require("./files/entities/file.providers");
+const files_service_1 = require("./files/files.service");
+let AppModule = class AppModule {
 };
+exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [portifolio_module_1.PortifolioModule, experience_module_1.ExperienceModule, hardSkill_module_1.HardSkillModule],
-        controllers: [app_controller_1.AppController, portifolio_controller_1.PortifolioController, experience_controller_1.ExperienceController, hardSkill_controller_1.HardSkillController],
-        providers: [...portifolio_providers_1.portifolioProviders, ...experience_providers_1.experienceProviders, ...database_providers_1.databaseProviders, ...hardSkill_providers_1.hardSkillProviders, app_service_1.AppService, portifolio_service_1.PortifolioService, experience_service_1.ExperienceService, hardSkill_service_1.HardSkillService],
+        imports: [portifolio_module_1.PortifolioModule, experience_module_1.ExperienceModule, hardSkill_module_1.HardSkillModule, files_module_1.FilesModule],
+        controllers: [app_controller_1.AppController, portifolio_controller_1.PortifolioController, experience_controller_1.ExperienceController, hardSkill_controller_1.HardSkillController, files_controller_1.FilesController],
+        providers: [...portifolio_providers_1.portifolioProviders, ...file_providers_1.fileProviders, ...experience_providers_1.experienceProviders, ...database_providers_1.databaseProviders, ...hardSkill_providers_1.hardSkillProviders, app_service_1.AppService, portifolio_service_1.PortifolioService, experience_service_1.ExperienceService, hardSkill_service_1.HardSkillService, files_service_1.FilesService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

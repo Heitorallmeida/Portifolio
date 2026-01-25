@@ -12,8 +12,9 @@ const database_module_1 = require("../database/database.module");
 const hardSkill_providers_1 = require("./hardSkill.providers");
 const hardSkill_service_1 = require("./hardSkill.service");
 const portifolio_providers_1 = require("../Portifolio/portifolio.providers");
-let HardSkillModule = exports.HardSkillModule = class HardSkillModule {
+let HardSkillModule = class HardSkillModule {
 };
+exports.HardSkillModule = HardSkillModule;
 exports.HardSkillModule = HardSkillModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DatabaseModule],

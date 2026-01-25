@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HardSkill = void 0;
 const portifolio_entity_1 = require("../Portifolio/portifolio.entity");
 const typeorm_1 = require("typeorm");
-let HardSkill = exports.HardSkill = class HardSkill {
+let HardSkill = class HardSkill {
 };
+exports.HardSkill = HardSkill;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)

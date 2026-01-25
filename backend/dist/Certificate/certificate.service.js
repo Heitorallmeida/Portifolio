@@ -16,7 +16,7 @@ exports.CertificateService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const certificate_entity_1 = require("./certificate.entity");
-let CertificateService = exports.CertificateService = class CertificateService {
+let CertificateService = class CertificateService {
     constructor(certificateRepository, portifolioRepository) {
         this.certificateRepository = certificateRepository;
         this.portifolioRepository = portifolioRepository;
@@ -51,10 +51,12 @@ let CertificateService = exports.CertificateService = class CertificateService {
         return certificates;
     }
     async findOne(id) {
-        const certificate = await this.certificateRepository.find({ where: { portifolio: { id: id } } });
+        const portifolio = await this.portifolioRepository.findOne({ where: { id: id } });
+        const certificate = await this.certificateRepository.find({ where: { portifolio: portifolio } });
         return certificate;
     }
 };
+exports.CertificateService = CertificateService;
 exports.CertificateService = CertificateService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('CERTIFICATE_REPOSITORY')),

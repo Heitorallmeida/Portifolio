@@ -16,7 +16,7 @@ exports.HardSkillService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const hardSkill_entity_1 = require("./hardSkill.entity");
-let HardSkillService = exports.HardSkillService = class HardSkillService {
+let HardSkillService = class HardSkillService {
     constructor(hardSkillRepository, portifolioRepository) {
         this.hardSkillRepository = hardSkillRepository;
         this.portifolioRepository = portifolioRepository;
@@ -83,7 +83,8 @@ let HardSkillService = exports.HardSkillService = class HardSkillService {
         return hardSkills;
     }
     async findOne(id) {
-        const hardSkills = await this.hardSkillRepository.find({ where: { portifolio: { id: id } } });
+        const portifolio = await this.portifolioRepository.findOne({ where: { id: id } });
+        const hardSkills = await this.hardSkillRepository.find({ where: { portifolio: portifolio } });
         const resultado = hardSkills.reduce((acc, objeto) => {
             const { title, percentage } = objeto;
             if (acc[title]) {
@@ -97,6 +98,7 @@ let HardSkillService = exports.HardSkillService = class HardSkillService {
         return resultado;
     }
 };
+exports.HardSkillService = HardSkillService;
 exports.HardSkillService = HardSkillService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('HARD_SKILL_REPOSITORY')),

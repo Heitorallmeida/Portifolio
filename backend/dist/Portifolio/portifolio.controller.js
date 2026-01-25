@@ -16,7 +16,7 @@ exports.PortifolioController = void 0;
 const common_1 = require("@nestjs/common");
 const portifolio_service_1 = require("./portifolio.service");
 const create_portifolio_1 = require("../dto/create-portifolio");
-let PortifolioController = exports.PortifolioController = class PortifolioController {
+let PortifolioController = class PortifolioController {
     constructor(portifolioService) {
         this.portifolioService = portifolioService;
     }
@@ -38,6 +38,7 @@ let PortifolioController = exports.PortifolioController = class PortifolioContro
         return await this.portifolioService.create(createPortifolioDto.name, createPortifolioDto.lastname);
     }
 };
+exports.PortifolioController = PortifolioController;
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

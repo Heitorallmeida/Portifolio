@@ -11,8 +11,9 @@ const common_1 = require("@nestjs/common");
 const database_module_1 = require("../database/database.module");
 const portifolio_providers_1 = require("./portifolio.providers");
 const portifolio_service_1 = require("./portifolio.service");
-let PortifolioModule = exports.PortifolioModule = class PortifolioModule {
+let PortifolioModule = class PortifolioModule {
 };
+exports.PortifolioModule = PortifolioModule;
 exports.PortifolioModule = PortifolioModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DatabaseModule],

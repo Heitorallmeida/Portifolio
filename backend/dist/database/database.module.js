@@ -9,8 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseModule = void 0;
 const common_1 = require("@nestjs/common");
 const database_providers_1 = require("./database.providers");
-let DatabaseModule = exports.DatabaseModule = class DatabaseModule {
+let DatabaseModule = class DatabaseModule {
 };
+exports.DatabaseModule = DatabaseModule;
 exports.DatabaseModule = DatabaseModule = __decorate([
     (0, common_1.Module)({
         providers: [...database_providers_1.databaseProviders],

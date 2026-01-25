@@ -16,7 +16,7 @@ exports.HardSkillController = void 0;
 const common_1 = require("@nestjs/common");
 const hardSkill_service_1 = require("./hardSkill.service");
 const create_hard_skill_1 = require("../dto/create-hard-skill");
-let HardSkillController = exports.HardSkillController = class HardSkillController {
+let HardSkillController = class HardSkillController {
     constructor(hardSkillService) {
         this.hardSkillService = hardSkillService;
     }
@@ -37,6 +37,7 @@ let HardSkillController = exports.HardSkillController = class HardSkillControlle
         return this.hardSkillService.findOne(id);
     }
 };
+exports.HardSkillController = HardSkillController;
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

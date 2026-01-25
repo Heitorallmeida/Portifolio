@@ -12,8 +12,9 @@ const database_module_1 = require("../database/database.module");
 const certificate_providers_1 = require("./certificate.providers");
 const certificate_service_1 = require("./certificate.service");
 const portifolio_providers_1 = require("../Portifolio/portifolio.providers");
-let CertificateModule = exports.CertificateModule = class CertificateModule {
+let CertificateModule = class CertificateModule {
 };
+exports.CertificateModule = CertificateModule;
 exports.CertificateModule = CertificateModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DatabaseModule],

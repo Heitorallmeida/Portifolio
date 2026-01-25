@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Certificate = void 0;
 const portifolio_entity_1 = require("../Portifolio/portifolio.entity");
 const typeorm_1 = require("typeorm");
-let Certificate = exports.Certificate = class Certificate {
+let Certificate = class Certificate {
 };
+exports.Certificate = Certificate;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
