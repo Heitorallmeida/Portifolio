@@ -1,0 +1,51 @@
+[
+    {
+        "initialDate": "2019-02-01T17:23:50.036Z",
+        "finishDate": "2019-06-01T18:23:50.036Z",
+        "current": false,
+        "image": "propep.png",
+        "title": "Bolsista"
+    },
+    {
+        "initialDate": "2019-06-01T18:23:50.036Z",
+        "finishDate": "2020-08-01T18:23:50.036Z",
+        "current": false,
+        "image": "nti.jpg",
+        "title": "Dev Full Stack Part time"
+    },
+    {
+        "initialDate": "2021-03-01T18:23:50.036Z",
+        "finishDate": "2022-02-01T18:23:50.036Z",
+        "current": false,
+        "image": "accio.png",
+        "title": "Dev Full Stack"
+    },
+    {
+        "initialDate": "2021-03-01T18:23:50.036Z",
+        "finishDate": "2022-05-01T18:23:50.036Z",
+        "current": false,
+        "image": "edge.png",
+        "title": "Dev Front End"
+    },
+    {
+        "initialDate": "2022-02-01T18:23:50.036Z",
+        "finishDate": "2022-10-01T18:23:50.036Z",
+        "current": false,
+        "image": "sambatech.jpg",
+        "title": "Dev Front End"
+    },
+    {
+        "initialDate": "2022-10-01T18:23:50.036Z",
+        "finishDate": "2023-04-01T18:23:50.036Z",
+        "current": false,
+        "image": "disys.jpg",
+        "title": "Dev Front End"
+    },
+    {
+        "initialDate": "2022-04-01T18:23:50.036Z",
+        "finishDate": "2023-04-01T18:23:50.036Z",
+        "current": true,
+        "image": "boticario.png",
+        "title": "Dev Front End"
+    }
+]

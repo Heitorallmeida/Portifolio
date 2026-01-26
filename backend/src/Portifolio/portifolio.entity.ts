@@ -1,7 +1,7 @@
 
-import { Certificate } from 'src/Certificate/certificate.entity';
-import { Experience } from 'src/Experience/experience.entity';
-import { HardSkill } from 'src/HardSkill/hardSkill.entity';
+import { Certificate } from '../Certificate/certificate.entity';
+import { Experience } from '../Experience/experience.entity';
+import { HardSkill } from '../HardSkill/hardSkill.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()

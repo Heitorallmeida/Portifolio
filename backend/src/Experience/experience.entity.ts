@@ -1,5 +1,5 @@
 
-import { Portifolio } from 'src/Portifolio/portifolio.entity';
+import { Portifolio } from '../Portifolio/portifolio.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
