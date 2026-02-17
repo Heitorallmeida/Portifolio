@@ -10,7 +10,6 @@ type CourseItemProps = {
 const CourseItem = ({ name, image }: CourseItemProps) => {
   return (
     <StyledCard>
-      {/* <StyledCardMedia component="img" image={image} /> */}
       <StyledCardMedia image={image} />
       <CardContent>
         <Typography
