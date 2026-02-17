@@ -12,7 +12,8 @@ export const CardStyle = styled(Card)`
   }
 `;
 
-export const CardMediaStyled = styled(CardMedia)`
+export const CardMediaStyled = styled(CardMedia)<{ link?: string }>`
+  background-image
   min-width: 25vh;
   max-width: 30vh;
   height: 20vh;

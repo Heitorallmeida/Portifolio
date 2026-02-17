@@ -27,6 +27,6 @@ export class PortifolioController {
   }
   @Post()
   async create(@Body() createPortifolioDto: CreatePortifolioDto): Promise<Portifolio>{
-     return await this.portifolioService.create(createPortifolioDto.name,createPortifolioDto.lastname);
+     return await this.portifolioService.create(createPortifolioDto.name, createPortifolioDto.lastname, createPortifolioDto.profileImageId);
   }
 }

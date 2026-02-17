@@ -1,0 +1,20 @@
+version: '3'
+
+tasks:
+  dev:
+    desc: Start both backend and frontend (backend in background)
+    cmds:
+      - cd backend && pnpm run start:dev &
+      - cd frontend && pnpm run dev
+
+  backend:
+    dir: backend
+    desc: Start backend in development mode
+    cmds:
+      - pnpm run start:dev
+
+  frontend:
+    dir: frontend
+    desc: Start frontend in development mode
+    cmds:
+      - pnpm run dev

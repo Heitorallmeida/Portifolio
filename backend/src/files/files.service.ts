@@ -19,4 +19,8 @@ export class FilesService {
 
     return await this.fileRepository.save(arquivo);
   }
+
+  async findById(id: string) {
+    return await this.fileRepository.findOne({ where: { id: parseInt(id) } });
+  }
 }

@@ -10,18 +10,22 @@ export class PortifolioService {
   ) {}
 
   async findAll(): Promise<Portifolio[]> {
-    return this.portifolioRpository.find();
+    return this.portifolioRpository.find({ relations: ['experiences', 'hardSkills', 'certificates', 'profileImage']});
   }
   
   async findById(id): Promise<Portifolio> {
-    return this.portifolioRpository.findOne({where:{id: id}, relations: ['experiences', 'hardSkills', 'certificates']});
+    return this.portifolioRpository.findOne({where:{id: id}, relations: ['experiences', 'hardSkills', 'certificates', 'profileImage']});
   }
 
-  async create(name: string, lastname: string): Promise<Portifolio> {
+  async create(name: string, lastname: string, profileImageId?: number): Promise<Portifolio> {
     const portifolio = new Portifolio();
 
     portifolio.name = name;
     portifolio.lastname = lastname;
+    
+    if (profileImageId) {
+      portifolio.profileImage = { id: profileImageId } as any;
+    }
     
     return await this.portifolioRpository.save(portifolio)
   }

@@ -1,10 +1,23 @@
 import globalStyles from '../styles/global';
 import useUser from "@/hooks/useUser";
 import React, { ReactNode } from 'react';
+import { ThemeProvider, createTheme } from "@mui/material";
 
 interface LayoutProps {
   children: ReactNode
 }
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#000000',
+    },
+    secondary: {
+      main: '#FFFFFF',
+    },
+  },
+});
+
 const Layout = ({children}: LayoutProps) => {
   const { isLoading, hasError } = useUser();
 
@@ -15,12 +28,14 @@ const Layout = ({children}: LayoutProps) => {
   }
 
   return (
-    <div className="page-layout" style={{width: '100%', padding: '0'}}>
-      {renderPage()}
-      <style jsx global>
-        {globalStyles}
-      </style>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="page-layout" style={{width: '100%', padding: '0'}}>
+        {renderPage()}
+        <style jsx global>
+          {globalStyles}
+        </style>
+      </div>
+    </ThemeProvider>
   );
 }
 

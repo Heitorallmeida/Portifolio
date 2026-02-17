@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import Particles from "react-tsparticles";
+import Particles from "@tsparticles/react";
 import styled from "styled-components";
 import Image from 'next/image';
 
@@ -10,20 +10,27 @@ export const particles = styled(Particles)`
   margin-top: 0;
   display: flex;
   flex-direction: column;
+   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
+              0 10px 30px rgba(0, 0, 0, 0.3),
+              0 0 40px rgba(255, 255, 255, 0.1);
+              
+  canvas {
+    height: 60vh !important;
+  }
 `;
 
 export const bannerTitleText = styled(Typography)`
   top: 4rem;
   color: white;
   position: absolute;
-  left: 32vh;
+  left: 35vh;
   @media (max-width: 600px) {
     left: 5vh;
   }
 `;
 
 export const bannerSecondTitleText = styled(Typography)`
-  left: 35vh;
+  left: 37vh;
   @media (max-width: 600px) {
     left: 8vh;
   }
@@ -38,12 +45,15 @@ export const bannerContainer = styled(Container)`
   witdh: 100%;
   max-width: 100% !important;
   padding: 0 !important;
+ 
 `;
 
 export const image = styled(Image)`
   padding: 2rem;
   border-radius: 50px;
-  width: 25vh;
+  width: 30vh;
+  height: 30vh;
+
   @media (max-width: 600px) {
     display: none;
   }

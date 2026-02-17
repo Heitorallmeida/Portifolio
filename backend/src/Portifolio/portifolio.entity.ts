@@ -2,7 +2,8 @@
 import { Certificate } from '../Certificate/certificate.entity';
 import { Experience } from '../Experience/experience.entity';
 import { HardSkill } from '../HardSkill/hardSkill.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { File } from '../files/entities/file.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Portifolio {
@@ -14,6 +15,10 @@ export class Portifolio {
 
   @Column()
   lastname: string;
+
+  @OneToOne(() => File, { nullable: true })
+  @JoinColumn()
+  profileImage: File;
 
   @OneToMany(() => Experience, (experience) => experience.portifolio) 
   experiences: Experience[]

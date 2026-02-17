@@ -29,32 +29,18 @@ function Experiences() {
           fontWeight: "bold",
           textAlign: "center",
           marginTop: "6rem",
-          color: "white",
+          color: "black",
         }}
       >
         {language === "pt-BR" ? "Experiências" : "Experiences"}
-      </Typography>
-      <Typography
-        variant="h4"
-        component="h2"
-        style={{
-          fontWeight: "bold",
-          textAlign: "center",
-          marginTop: "1rem",
-          color: "white",
-        }}
-      >
-        {language === "pt-BR"
-          ? "Iniciou Engenharia de Computação"
-          : "Started Computer Engineering"}
       </Typography>
       {experiences?.map((experience, index)=>{
         if(index % 3 === 0){
           return (
           <Row key={index}>
-            <ExperienceItem name={experience.title} image={`/static/images/${experience.image}`} current={experience.current}></ExperienceItem>
-            {experiences[index+1] && <ExperienceItem name={experiences[index+1].title} image={`/static/images/${experiences[index+1].image}`} current={experiences[index+1].current}></ExperienceItem>}
-            {experiences[index+2] && <ExperienceItem name={experiences[index+2].title} image={`/static/images/${experiences[index+2].image}`} current={experiences[index+2].current}></ExperienceItem>}
+            <ExperienceItem name={experience.title} image={`${experience.image}`} current={experience.current}></ExperienceItem>
+            {experiences[index+1] && <ExperienceItem name={experiences[index+1].title} image={`${experiences[index+1].image}`} current={experiences[index+1].current}></ExperienceItem>}
+            {experiences[index+2] && <ExperienceItem name={experiences[index+2].title} image={`${experiences[index+2].image}`} current={experiences[index+2].current}></ExperienceItem>}
           </Row>
           )
         }

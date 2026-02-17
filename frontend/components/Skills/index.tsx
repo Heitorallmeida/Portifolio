@@ -1,13 +1,19 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as S from "./styles";
-import { HardSkill, HardSkillObject } from "@/api/hardSkill/experience.type";
+import {  HardSkillObject } from "@/api/hardSkill/experience.type";
 import useUser from "@/hooks/useUser";
+import { calculateYearsOfExperience } from "@/utils/experienceCalculator";
 
 function Skills() {
   const { user } = useUser();
   const [activeAnimation, setActiveAnimation] = useState(false);
-  const [hardSkills, setHardSkills] = useState();
+  const [hardSkills, setHardSkills] = useState<HardSkillObject | undefined>(undefined);
+  const [yearsOfExperience, setYearsOfExperience] = useState<number>(0);
+
+  console.log(user)
+
+
 
 
   const inputEl = useRef<HTMLDivElement | null>(null);
@@ -33,12 +39,17 @@ function Skills() {
   
   useEffect(() => {
     if(user){
-
-      console.log(user)
       setHardSkills(user.hardSkills)
+      if(user.experiences){
+        const years = calculateYearsOfExperience(user.experiences);
+        console.info(years)
+        setYearsOfExperience(years);
+      }
     }
      
   }, [user]);
+
+  console.info(yearsOfExperience)
 
   return (
     <>
@@ -59,57 +70,26 @@ function Skills() {
         </S.titleWrapper>
         <S.skillsWrapper>
           <S.markRow>
-            <S.skill variant="h6">0</S.skill>
-            <S.skill variant="h6">1</S.skill>
-            <S.skill variant="h6">2</S.skill>
-            <S.skill variant="h6">3</S.skill>
-            <S.skill variant="h6">4</S.skill>
+            {Array.from({ length: yearsOfExperience }, (_, i) => (
+              <S.skill key={i} variant="h6">{i + 1}</S.skill>
+            ))}
           </S.markRow>
-          <S.row>
-            <S.skill variant="h6">Angular</S.skill>
-            <S.defaultBox>
-              <S.boxAngular
-                animation={activeAnimation ? "angular" : "none"}
-                percentage={hardSkills ? hardSkills['Angular'] : 0}
-              ></S.boxAngular>
-            </S.defaultBox>
-          </S.row>
-          <S.row>
-            <S.skill variant="h6">React</S.skill>
-            <S.defaultBox>
-              <S.boxReact
-                animation={activeAnimation ? "react" : "none"}
-                percentage={hardSkills ? hardSkills['React'] : 0}
-              ></S.boxReact>
-            </S.defaultBox>
-          </S.row>
-          <S.row>
-            <S.skill variant="h6">Rails</S.skill>
-            <S.defaultBox>
-              <S.boxRails
-                animation={activeAnimation ? "rails" : "none"}
-                percentage={hardSkills ? hardSkills['Rails'] : 0}
-              ></S.boxRails>
-            </S.defaultBox>
-          </S.row>
-          <S.row>
-            <S.skill variant="h6">Java</S.skill>
-            <S.defaultBox>
-              <S.boxJava
-                animation={activeAnimation ? "java" : "none"}
-                percentage={hardSkills ? hardSkills['Spring Boot'] : 0}
-              ></S.boxJava>
-            </S.defaultBox>
-          </S.row>
-          <S.row>
-            <S.skill variant="h6">Flutter</S.skill>
-            <S.defaultBox>
-              <S.boxFlutter
-                animation={activeAnimation ? "flutter" : "none"}
-                percentage={hardSkills ? hardSkills['Flutter'] : 0}
-              ></S.boxFlutter>
-            </S.defaultBox>
-          </S.row>
+          {hardSkills && Object.entries(hardSkills).map(([skillName, percentage]) => {
+            const skillKey = skillName.toLowerCase();
+            const BoxComponent = (S as any)[`box${skillName}`] || S.boxAngular;
+            
+            return (
+              <S.row key={skillName}>
+                <S.skill variant="h6">{skillName}</S.skill>
+                <S.defaultBox>
+                  <BoxComponent
+                    animation={activeAnimation ? skillKey : "none"}
+                    percentage={percentage}
+                  />
+                </S.defaultBox>
+              </S.row>
+            );
+          })}
         </S.skillsWrapper>
       </S.div>
     </>
