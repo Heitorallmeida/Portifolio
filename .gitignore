@@ -3,6 +3,7 @@
 # dependencies
 /frontend/package-lock.json
 /backend/yarn.lock
+/backend/ecosystem.config.js
 /frontend/node_modules
 /backend/node_modules
 /.pnp
@@ -33,6 +34,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel

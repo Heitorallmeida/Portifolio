@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 import {
     Container,
     Typography,
@@ -23,6 +24,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useRouter } from "next/router";
 import NavBar from "../components/nav";
 import Layout from "./layout";
+import { apiGet, apiDelete } from "../utils/fetcher";
 
 interface Portfolio {
     id: number;
@@ -48,14 +50,11 @@ export default function Home() {
     const fetchPortfolios = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`http://localhost:3001/portifolio`);
-            
-            if (!res.ok) {
-                throw new Error("Failed to fetch portfolios");
+            const data = await apiGet<any>('/portifolio');
+            if (!Array.isArray(data)) {
+                throw new Error('Invalid response from server');
             }
-
-            const data = await res.json();
-            setPortfolios(data);
+            setPortfolios(data as Portfolio[]);
             setError(null);
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred");
@@ -64,6 +63,14 @@ export default function Home() {
             setLoading(false);
         }
     };
+
+    function handleDelete(id: number): void {
+        apiDelete(`/portifolio/${id}`).then(() => {
+            setPortfolios((prevPortfolios) => prevPortfolios.filter((portfolio) => portfolio.id !== id));
+        }).catch((err) => {
+            console.error("Error deleting portfolio:", err);
+        });
+    }
 
     return (
         <Layout>
@@ -169,6 +176,7 @@ export default function Home() {
                                                         </Typography>
                                                     }
                                                 />
+                                                <CloseIcon sx={{ color: 'text.secondary' }} onClick={(e) => { e.stopPropagation(); handleDelete(portfolio.id); }} />
                                                 <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} />
                                             </ListItemButton>
                                         </Box>
