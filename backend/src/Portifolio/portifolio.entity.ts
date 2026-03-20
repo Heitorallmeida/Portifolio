@@ -1,5 +1,4 @@
 
-import { Certificate } from '../Certificate/certificate.entity';
 import { Experience } from '../Experience/experience.entity';
 import { HardSkill } from '../HardSkill/hardSkill.entity';
 import { File } from '../files/entities/file.entity';
@@ -16,6 +15,9 @@ export class Portifolio {
   @Column()
   lastname: string;
 
+  @Column({ type: 'text', nullable: true })
+  aboutMe: string;
+
   @OneToOne(() => File, { nullable: true })
   @JoinColumn()
   profileImage: File;
@@ -25,7 +27,4 @@ export class Portifolio {
 
   @OneToMany(() => HardSkill, (hardSkills) => hardSkills.portifolio)
   hardSkills: HardSkill[]
-  
-  @OneToMany(() => Certificate, (certificates) => certificates.portifolio)
-  certificates: Certificate[]
 }

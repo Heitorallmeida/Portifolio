@@ -7,7 +7,6 @@ This directory contains database seeders to populate your portfolio database wit
 - **portifolio.seeder.ts** - Seeds the main portfolio record
 - **experience.seeder.ts** - Seeds work experiences from `experiences.json`
 - **hardSkill.seeder.ts** - Seeds hard skills from `hardSkills.json`
-- **certificate.seeder.ts** - Seeds sample certificates
 - **index.ts** - Main seeder runner that executes all seeders in order
 
 ## Usage
@@ -22,13 +21,11 @@ This will:
 1. Create a portfolio entry (if it doesn't exist)
 2. Import experiences from `experiences.json`
 3. Import hard skills from `hardSkills.json`
-4. Create sample certificates
 
 ### Data Sources
 
 - Experiences: `/backend/experiences.json`
 - Hard Skills: `/backend/hardSkills.json`
-- Certificates: Hardcoded sample data (modify in `certificate.seeder.ts`)
 
 ## Notes
 

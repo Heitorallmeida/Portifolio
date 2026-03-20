@@ -2,7 +2,6 @@ import { AppDataSource } from '../data-source';
 import { PortifolioSeeder } from './portifolio.seeder';
 import { ExperienceSeeder } from './experience.seeder';
 import { HardSkillSeeder } from './hardSkill.seeder';
-import { CertificateSeeder } from './certificate.seeder';
 
 async function runSeeders() {
   try {
@@ -21,9 +20,6 @@ async function runSeeders() {
 
     const hardSkillSeeder = new HardSkillSeeder();
     await hardSkillSeeder.run(AppDataSource);
-
-    const certificateSeeder = new CertificateSeeder();
-    await certificateSeeder.run(AppDataSource);
 
     console.log('\n🎉 Database seeding completed successfully!');
     

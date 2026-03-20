@@ -76,7 +76,7 @@ function NavBar() {
 
   return (
     <>
-      <AppBar color="primary" position="static">
+      <AppBar color="primary" position="sticky">
         <Toolbar>
           <div style={{ display: "flex"}}>
             <Typography variant="h6" onClick={handleProfileMenuOpen}>

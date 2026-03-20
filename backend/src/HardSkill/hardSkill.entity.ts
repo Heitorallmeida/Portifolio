@@ -22,6 +22,6 @@ export class HardSkill {
   @Column()
   title: string;
 
-  @ManyToOne(() => Portifolio, (portifolio) => portifolio.id)
+  @ManyToOne(() => Portifolio, (portifolio) => portifolio.hardSkills, { onDelete: 'CASCADE' })
   portifolio: Portifolio
 }
