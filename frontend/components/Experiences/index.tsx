@@ -3,9 +3,9 @@ import { Typography } from "@mui/material";
 import { ExperiencesWrapper, Row } from "./styles";
 import useLanguage from "../../hooks/useLanguage";
 import { useState, useEffect } from "react";
-import { Experience } from "@/api/experience/experience.type";
 import { Portifolio } from "@/api/portifolio/portifolio.types";
 import useUser from "@/hooks/useUser";
+import { Experience } from "@/api/user/user.types";
 
 function Experiences() {
   const [experiences, setExperiences] = useState<Experience[]>();

@@ -14,14 +14,14 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
         )
       }
 
-      static async getInitialProps(ctx) {
+      static async getInitialProps(ctx: any) {
         const sheet = new ServerStyleSheet()
         const originalRenderPage = ctx.renderPage
 
         try {
           ctx.renderPage = () =>
             originalRenderPage({
-              enhanceApp: (App) => (props) =>
+              enhanceApp: (App: any) => (props: any) =>
                 sheet.collectStyles(<App {...props} />),
             })
 

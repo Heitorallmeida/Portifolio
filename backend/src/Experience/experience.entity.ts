@@ -22,7 +22,7 @@ export class Experience {
   @Column()
   title: string;
 
-  @ManyToOne(() => Portifolio, (portifolio) => portifolio.experiences)
+  @ManyToOne(() => Portifolio, (portifolio) => portifolio.experiences, { onDelete: 'CASCADE' })
   portifolio: Portifolio
 
 }

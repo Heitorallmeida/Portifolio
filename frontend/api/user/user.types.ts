@@ -8,13 +8,6 @@ export type Experience = {
   portifolioId: number;
 };
 
-export type Certificate = {
-  id: number;
-  title: string;
-  image_name: string;
-  image: string;
-};
-
 export type ProfileImage = {
   id: number;
   fileName: string;
@@ -33,6 +26,5 @@ export type User = {
   lastname: string;
   experiences: Experience[];
   hardSkills: HardSkills;
-  certificates: Certificate[];
   profileImage: ProfileImage;
 };
