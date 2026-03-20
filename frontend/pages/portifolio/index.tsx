@@ -1,6 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import Banner from "../../components/Banner";
-import Courses from "../../components/Courses";
 import Experiences from "../../components/Experiences";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/nav";
@@ -30,7 +29,6 @@ export default function Home() {
                 <Banner />
                 <Experiences />
                 <Skills />
-                <Courses />
                 <Footer />
             </Layout>
         </LanguageProvider>
