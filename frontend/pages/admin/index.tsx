@@ -73,9 +73,9 @@ const CreatePortifolio = () => {
     const [lastname, setLastname] = useState("");
     const [portifolioId, setPortifolioId] = useState<number | null>(null);
     const [file, setFile] = useState<File | undefined>();
-    const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
     const [fileData, setFileData] = useState<any>(null);
     const [aboutMe, setAboutMe] = useState("");
+    const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
     
     // Experience state
     const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -129,7 +129,6 @@ const CreatePortifolio = () => {
 
                 if (data.profileImage) {
                     setFileData(data.profileImage);
-                    setUploadedImageUrl(data.profileImage.url || data.profileImage.filename || "");
                 }
 
                 if (Array.isArray(data.experiences)) {
@@ -197,11 +196,11 @@ const CreatePortifolio = () => {
         
         try {
             const data = await apiFetch('/files', { method: 'POST', body: formData });
-            setUploadedImageUrl(data.filename || data.url || "");
             setFileData(data);
             console.info("File upload response:", data);
             
             setMessage("File uploaded successfully!");
+            getImageUrl(data.url || data.filename || "");
             handleNext();
         } catch (error) {
             setMessage("Error uploading file");
@@ -317,6 +316,14 @@ const CreatePortifolio = () => {
         handleNext();
     };
 
+    const getImageUrl = async (fileName: string) => {
+        try {
+            setImageUrl(fileName);
+        } catch (error) {
+            console.error("Error fetching image URL:", error);
+        }
+    };
+
     const getStepContent = (step: number) => {
         switch (step) {
             case 0:
@@ -347,19 +354,18 @@ const CreatePortifolio = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     {file ? file.name : "No file selected"}
                                 </Typography>
-                                {uploadedImageUrl && (
+                                {imageUrl && (
                                     <Alert severity="info">
-                                        Uploaded: {uploadedImageUrl}
+                                        Uploaded: {imageUrl}
                                     </Alert>
                                 )}
-                                {console.info(fileData)}
-                                {fileData && fileData.url && (
+                                {imageUrl  && (
                                     <Box sx={{ mt: 2, textAlign: 'center' }}>
                                         <Typography variant="subtitle2" gutterBottom>
                                             Image Preview:
                                         </Typography>
                                         <img 
-                                            src={fileData.url} 
+                                            src={imageUrl} 
                                             alt="Uploaded file" 
                                             style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
                                         />
@@ -645,9 +651,9 @@ const CreatePortifolio = () => {
                                             <strong>Portfolio ID:</strong> {portifolioId}
                                         </Typography>
                                     )}
-                                    {uploadedImageUrl && (
+                                    {imageUrl && (
                                         <Typography variant="body2">
-                                            <strong>Image:</strong> {uploadedImageUrl}
+                                            <strong>Image:</strong> {imageUrl}
                                         </Typography>
                                     )}
                                     {fileData && fileData.url && (

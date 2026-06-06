@@ -18,8 +18,7 @@ export class S3Service {
     });
   }
 
-  async uploadFile(contentType) {
-    const key = `${randomUUID()}`;
+  async uploadFile(contentType, key) {
     return await this.generateUploadUrl(
       this.config.get('aws.bucket'),
       key,
@@ -27,6 +26,7 @@ export class S3Service {
       3600,
     );
   }
+  
  async generateUploadUrl(
     bucketName: string,
     key: string,
@@ -43,6 +43,7 @@ export class S3Service {
     const signedUrl = await getSignedUrl(this.s3, command, {
       expiresIn,
     });
+    console.log('Generated S3 upload URL:', signedUrl);
 
     return {
       uploadUrl: signedUrl,
@@ -50,4 +51,17 @@ export class S3Service {
       bucketName,
     };
   }
+
+   async generateAccessUrl(fileName) {
+    const command = new GetObjectCommand({
+        Bucket: this.config.get('aws.bucket'),
+        Key: fileName
+    });
+
+    const accessUrl = await getSignedUrl(this.s3, command, { 
+        expiresIn: 86400 // 24 horas
+    });
+    
+    return accessUrl;
+}
 }

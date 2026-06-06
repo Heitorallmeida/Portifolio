@@ -32,16 +32,7 @@ export class FilesController {
   }
 
   @Get(':filename')
-  async serveFile(@Param('filename') filename: string, @Res() res: Response) {
-    const filePath = join(process.cwd(), 'upload', 'files', filename);
-    
-    if (!existsSync(filePath)) {
-      console.log(`File not found: ${filePath}`);
-      throw new NotFoundException('File not found');
-    }
-    
-    return res.sendFile(filePath);
+  async serveFile(@Param('filename') filename: string) {
+    return this.filesService.getS3FileUrl(filename);
   }
-
- 
 }
