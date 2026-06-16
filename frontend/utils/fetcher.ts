@@ -13,7 +13,7 @@ export class ApiError extends Error {
 export async function apiFetch<T = any>(path: string, init?: RequestInit): Promise<T> {
   const url = path.startsWith('http') ? path : `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`
   const isForm = init && init.body instanceof FormData
-  const headers: Record<string, string> = init && (init.headers as Record<string, string>) ? { ...(init!.headers as Record<string, string>) } : {}
+  const headers: Record<string, string> = init && (init.headers as Record<string, string>) ? { ...(init!.headers as Record<string, string>) } : { authorization: `Bearer ${localStorage.getItem('access_token')}` }
   if (!isForm && !headers['Content-Type']) {
     headers['Content-Type'] = 'application/json'
   }

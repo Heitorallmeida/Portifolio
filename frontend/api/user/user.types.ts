@@ -8,13 +8,6 @@ export type Experience = {
   portifolioId: number;
 };
 
-export type ProfileImage = {
-  id: number;
-  fileName: string;
-  contentLength: number;
-  contentType: string;
-  url: string;
-};
 
 export type HardSkills = {
   [key: string]: number;
@@ -26,5 +19,5 @@ export type User = {
   lastname: string;
   experiences: Experience[];
   hardSkills: HardSkills;
-  profileImage: ProfileImage;
+  profileImageUrl?: string;
 };

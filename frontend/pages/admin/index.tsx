@@ -28,11 +28,11 @@ import {
     StepLabel,
     StepContent
 } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AddIcon from "@mui/icons-material/Add";
 import SendIcon from "@mui/icons-material/Send";
 import { useRouter } from "next/router";
 import { apiGet, apiPost, apiFetch } from "../../utils/fetcher";
+import NavBar from "@/components/nav";
 
 interface Certificate {
     title: string;
@@ -72,11 +72,10 @@ const CreatePortifolio = () => {
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [portifolioId, setPortifolioId] = useState<number | null>(null);
-    const [file, setFile] = useState<File | undefined>();
-    const [fileData, setFileData] = useState<any>(null);
+    const [profileImageUrl, setProfileImageUrl] = useState("");
     const [aboutMe, setAboutMe] = useState("");
     const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
-    
+
     // Experience state
     const [experiences, setExperiences] = useState<Experience[]>([]);
     const [experienceTitle, setExperienceTitle] = useState("");
@@ -84,7 +83,7 @@ const CreatePortifolio = () => {
     const [experienceFinishDate, setExperienceFinishDate] = useState("");
     const [experienceCurrent, setExperienceCurrent] = useState(false);
     const [experienceImage, setExperienceImage] = useState("");
-    
+
     // Hard Skill state
     const [hardSkills, setHardSkills] = useState<HardSkill[]>([]);
     const [hardSkillTitle, setHardSkillTitle] = useState("");
@@ -96,12 +95,17 @@ const CreatePortifolio = () => {
     const [message, setMessage] = useState("");
 
     const steps = [
-        'Upload Image (Optional)',
         'Create Portfolio',
         'Add Experiences',
         'Add Hard Skills',
         'Review & Submit'
     ];
+
+    useEffect(() => {
+        if (localStorage.getItem('access_token') === null) {
+            router.push('/login');
+        }
+    }, [])
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -127,15 +131,14 @@ const CreatePortifolio = () => {
                 setAboutMe(data.aboutMe || "");
                 setPortifolioId(data.id ?? null);
 
-                if (data.profileImage) {
-                    setFileData(data.profileImage);
-                }
+                setProfileImageUrl(data.profileImageUrl || "");
+                setImageUrl(data.profileImageUrl || undefined);
 
                 if (Array.isArray(data.experiences)) {
                     const mapped = data.experiences.map((exp: any) => ({
                         title: exp.title || "",
-                        initialDate: exp.initialDate ? String(exp.initialDate).slice(0,10) : "",
-                        finishDate: exp.finishDate ? String(exp.finishDate).slice(0,10) : "",
+                        initialDate: exp.initialDate ? String(exp.initialDate).slice(0, 10) : "",
+                        finishDate: exp.finishDate ? String(exp.finishDate).slice(0, 10) : "",
                         current: !!exp.current,
                         image: exp.image || ""
                     }));
@@ -145,14 +148,14 @@ const CreatePortifolio = () => {
                 if (Array.isArray(data.hardSkills)) {
                     const mapped = data.hardSkills.map((s: any) => ({
                         title: s.title || "",
-                        initialDate: s.initialDate ? String(s.initialDate).slice(0,10) : "",
-                        finishDate: s.finishDate ? String(s.finishDate).slice(0,10) : "",
+                        initialDate: s.initialDate ? String(s.initialDate).slice(0, 10) : "",
+                        finishDate: s.finishDate ? String(s.finishDate).slice(0, 10) : "",
                         current: !!s.current,
                         percentage: Number(s.percentage) || 0
                     }));
                     setHardSkills(mapped);
                 }
-                
+
             }
 
             console.log(data);
@@ -161,8 +164,8 @@ const CreatePortifolio = () => {
         }
     }, [id]);
 
-    useEffect(()=>{
-        if(id){
+    useEffect(() => {
+        if (id) {
             void fetchPortfolio();
         }
     }, [id, fetchPortfolio]);
@@ -183,44 +186,18 @@ const CreatePortifolio = () => {
     }, [fetchPortfoliosList]);
 
 
-    // Step 1: Upload file
-    const handleFileUpload = async (e: FormEvent) => {
-        e.preventDefault();
-        if (!file) {
-            setMessage("Please select a file");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('file', file as Blob);
-        
-        try {
-            const data = await apiFetch('/files', { method: 'POST', body: formData });
-            setFileData(data);
-            console.info("File upload response:", data);
-            
-            setMessage("File uploaded successfully!");
-            getImageUrl(data.url || data.filename || "");
-            handleNext();
-        } catch (error) {
-            setMessage("Error uploading file");
-            console.error(error);
-        }
-    };
-    console.log("Uploaded File Data:", fileData);
-
     // Step 2: Create Portfolio
     const handleCreatePortfolio = async (e: FormEvent) => {
         e.preventDefault();
-            try {
-                let data: any = null;
-                if (portifolioId) {
-                    data = await apiFetch(`/portifolio/${portifolioId}`, { method: 'PUT', body: JSON.stringify({ name, lastname, aboutMe, profileImageId: fileData ? fileData.id : null }) });
-                    setMessage(`Portfolio updated successfully! ID: ${portifolioId}`);
-                } else {
-                    data = await apiPost('/portifolio', { name, lastname, aboutMe, profileImageId: fileData ? fileData.id : null });
-                    setMessage(`Portfolio created successfully! ID: ${data.id}`);
-                }
+        try {
+            let data: any = null;
+            if (portifolioId) {
+                data = await apiFetch(`/portifolio/${portifolioId}`, { method: 'PUT', body: JSON.stringify({ name, lastname, aboutMe, profileImageUrl: profileImageUrl || null }) });
+                setMessage(`Portfolio updated successfully! ID: ${portifolioId}`);
+            } else {
+                data = await apiPost('/portifolio', { name, lastname, aboutMe, profileImageUrl: profileImageUrl || null });
+                setMessage(`Portfolio created successfully! ID: ${data.id}`);
+            }
 
             // Ensure portifolioId is set for subsequent steps
             setPortifolioId(data?.id ?? portifolioId);
@@ -277,16 +254,16 @@ const CreatePortifolio = () => {
             return;
         }
 
-            try {
-                for (const exp of experiences) {
-                    const result = await apiPost('/experience', { ...exp, portifolioId: Number(portifolioId) });
-                    console.log('Experience created:', result);
-                }
-                setMessage("Experiences created successfully!");
-            } catch (error: unknown) {
-                setMessage(`Error creating experiences: ${error instanceof Error ? error.message : 'Unknown error'}`);
-                console.error(error);
+        try {
+            for (const exp of experiences) {
+                const result = await apiPost('/experience', { ...exp, portifolioId: Number(portifolioId) });
+                console.log('Experience created:', result);
             }
+            setMessage("Experiences created successfully!");
+        } catch (error: unknown) {
+            setMessage(`Error creating experiences: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            console.error(error);
+        }
     };
 
     // Step 5: Submit all hard skills
@@ -296,16 +273,16 @@ const CreatePortifolio = () => {
             return;
         }
 
-            try {
-                for (const skill of hardSkills) {
-                    const result = await apiPost('/hardSkill', { ...skill, portifolioId: Number(portifolioId) });
-                    console.log('Hard skill created:', result);
-                }
-                setMessage("Hard skills created successfully!");
-            } catch (error: unknown) {
-                setMessage(`Error creating hard skills: ${error instanceof Error ? error.message : 'Unknown error'}`);
-                console.error(error);
+        try {
+            for (const skill of hardSkills) {
+                const result = await apiPost('/hardSkill', { ...skill, portifolioId: Number(portifolioId) });
+                console.log('Hard skill created:', result);
             }
+            setMessage("Hard skills created successfully!");
+        } catch (error: unknown) {
+            setMessage(`Error creating hard skills: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            console.error(error);
+        }
     };
 
     // Submit everything
@@ -316,85 +293,15 @@ const CreatePortifolio = () => {
         handleNext();
     };
 
-    const getImageUrl = async (fileName: string) => {
-        try {
-            setImageUrl(fileName);
-        } catch (error) {
-            console.error("Error fetching image URL:", error);
-        }
-    };
-
     const getStepContent = (step: number) => {
         switch (step) {
             case 0:
                 return (
                     <Box>
                         <Typography variant="body1" paragraph>
-                            Upload an image file that will be used in your portfolio.
-                        </Typography>
-                        <Box component="form" onSubmit={handleFileUpload}>
-                            <Stack spacing={2}>
-                                <Button
-                                    component="label"
-                                    variant="outlined"
-                                    startIcon={<CloudUploadIcon />}
-                                >
-                                    Choose File
-                                    <input 
-                                        name='file' 
-                                        type='file' 
-                                        hidden
-                                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                            if(e.target.files){
-                                                setFile(e.target.files[0]);
-                                            }
-                                        }}
-                                    />
-                                </Button>
-                                <Typography variant="body2" color="text.secondary">
-                                    {file ? file.name : "No file selected"}
-                                </Typography>
-                                {imageUrl && (
-                                    <Alert severity="info">
-                                        Uploaded: {imageUrl}
-                                    </Alert>
-                                )}
-                                {imageUrl  && (
-                                    <Box sx={{ mt: 2, textAlign: 'center' }}>
-                                        <Typography variant="subtitle2" gutterBottom>
-                                            Image Preview:
-                                        </Typography>
-                                        <img 
-                                            src={imageUrl} 
-                                            alt="Uploaded file" 
-                                            style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
-                                        />
-                                    </Box>
-                                )}
-                                <Box sx={{ display: 'flex', gap: 2 }}>
-                                    <Button 
-                                        type="submit" 
-                                        variant="contained" 
-                                        disabled={!file}
-                                    >
-                                        Upload & Continue
-                                    </Button>
-                                    <Button onClick={handleNext} variant="outlined">
-                                        Skip
-                                    </Button>
-                                </Box>
-                            </Stack>
-                        </Box>
-                    </Box>
-                );
-            
-            case 1:
-                return (
-                    <Box>
-                        <Typography variant="body1" paragraph>
                             Create your portfolio profile with your name and lastname.
                         </Typography>
-                        
+
                         <Box component="form" onSubmit={handleCreatePortfolio}>
                             <Stack spacing={2}>
                                 <TextField
@@ -418,6 +325,17 @@ const CreatePortifolio = () => {
                                     required
                                     fullWidth
                                 />
+                                <TextField
+                                    label="Profile image URL"
+                                    type="url"
+                                    value={profileImageUrl}
+                                    onChange={(e) => {
+                                        setProfileImageUrl(e.target.value);
+                                        setImageUrl(e.target.value || undefined);
+                                    }}
+                                    placeholder="https://example.com/profile.jpg"
+                                    fullWidth
+                                />
                                 {portifolioId && (
                                     <Alert severity="success">
                                         Portfolio ID: {portifolioId}
@@ -427,8 +345,8 @@ const CreatePortifolio = () => {
                                     <Button onClick={handleBack}>
                                         Back
                                     </Button>
-                                    <Button 
-                                        type="submit" 
+                                    <Button
+                                        type="submit"
                                         variant="contained"
                                         disabled={!name || !lastname}
                                     >
@@ -439,7 +357,7 @@ const CreatePortifolio = () => {
                         </Box>
                     </Box>
                 )
-            case 2:
+            case 1:
                 return (
                     <Box>
                         <Typography variant="body1" paragraph>
@@ -477,9 +395,9 @@ const CreatePortifolio = () => {
                             </Grid>
                             <FormControlLabel
                                 control={
-                                    <Checkbox 
-                                        checked={experienceCurrent} 
-                                        onChange={(e) => setExperienceCurrent(e.target.checked)} 
+                                    <Checkbox
+                                        checked={experienceCurrent}
+                                        onChange={(e) => setExperienceCurrent(e.target.checked)}
                                     />
                                 }
                                 label="Current"
@@ -490,15 +408,15 @@ const CreatePortifolio = () => {
                                 onChange={(e) => setExperienceImage(e.target.value)}
                                 fullWidth
                             />
-                            <Button 
-                                onClick={handleAddExperience} 
+                            <Button
+                                onClick={handleAddExperience}
                                 variant="outlined"
                                 startIcon={<AddIcon />}
                                 disabled={!experienceTitle || !experienceInitialDate}
                             >
                                 Add Experience
                             </Button>
-                            
+
                             {experiences.length > 0 && (
                                 <Box>
                                     <Typography variant="h6" gutterBottom>
@@ -507,8 +425,8 @@ const CreatePortifolio = () => {
                                     <List>
                                         {experiences.map((exp, idx) => (
                                             <ListItem key={idx} divider>
-                                                <ListItemText 
-                                                    primary={exp.title} 
+                                                <ListItemText
+                                                    primary={exp.title}
                                                     secondary={`${exp.initialDate} to ${exp.finishDate || 'Present'} ${exp.current ? "(Current)" : ""}`}
                                                 />
                                             </ListItem>
@@ -516,13 +434,13 @@ const CreatePortifolio = () => {
                                     </List>
                                 </Box>
                             )}
-                            
+
                             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
                                 <Button onClick={handleBack}>
                                     Back
                                 </Button>
-                                <Button 
-                                    onClick={handleNext} 
+                                <Button
+                                    onClick={handleNext}
                                     variant="contained"
                                 >
                                     Continue
@@ -531,8 +449,8 @@ const CreatePortifolio = () => {
                         </Stack>
                     </Box>
                 );
-            
-            case 3:
+
+            case 2:
                 return (
                     <Box>
                         <Typography variant="body1" paragraph>
@@ -570,9 +488,9 @@ const CreatePortifolio = () => {
                             </Grid>
                             <FormControlLabel
                                 control={
-                                    <Checkbox 
-                                        checked={hardSkillCurrent} 
-                                        onChange={(e) => setHardSkillCurrent(e.target.checked)} 
+                                    <Checkbox
+                                        checked={hardSkillCurrent}
+                                        onChange={(e) => setHardSkillCurrent(e.target.checked)}
                                     />
                                 }
                                 label="Current"
@@ -585,15 +503,15 @@ const CreatePortifolio = () => {
                                 onChange={(e) => setHardSkillPercentage(Number(e.target.value))}
                                 fullWidth
                             />
-                            <Button 
-                                onClick={handleAddHardSkill} 
+                            <Button
+                                onClick={handleAddHardSkill}
                                 variant="outlined"
                                 startIcon={<AddIcon />}
                                 disabled={!hardSkillTitle || !hardSkillInitialDate}
                             >
                                 Add Hard Skill
                             </Button>
-                            
+
                             {hardSkills.length > 0 && (
                                 <Box>
                                     <Typography variant="h6" gutterBottom>
@@ -602,8 +520,8 @@ const CreatePortifolio = () => {
                                     <List>
                                         {hardSkills.map((skill, idx) => (
                                             <ListItem key={idx} divider>
-                                                <ListItemText 
-                                                    primary={skill.title} 
+                                                <ListItemText
+                                                    primary={skill.title}
                                                     secondary={`${skill.percentage}% ${skill.current ? "(Current)" : ""}`}
                                                 />
                                             </ListItem>
@@ -611,13 +529,13 @@ const CreatePortifolio = () => {
                                     </List>
                                 </Box>
                             )}
-                            
+
                             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
                                 <Button onClick={handleBack}>
                                     Back
                                 </Button>
-                                <Button 
-                                    onClick={handleNext} 
+                                <Button
+                                    onClick={handleNext}
                                     variant="contained"
                                 >
                                     Continue
@@ -626,8 +544,8 @@ const CreatePortifolio = () => {
                         </Stack>
                     </Box>
                 );
-            
-            case 4:
+
+            case 3:
                 return (
                     <Box>
                         <Typography variant="h6" gutterBottom>
@@ -636,7 +554,7 @@ const CreatePortifolio = () => {
                         <Typography variant="body1" paragraph>
                             Review all your information and submit your complete portfolio.
                         </Typography>
-                        
+
                         <Stack spacing={3}>
                             <Card>
                                 <CardContent>
@@ -656,18 +574,18 @@ const CreatePortifolio = () => {
                                             <strong>Image:</strong> {imageUrl}
                                         </Typography>
                                     )}
-                                    {fileData && fileData.url && (
+                                    {profileImageUrl && (
                                         <Box sx={{ mt: 2, textAlign: 'center' }}>
-                                            <img 
-                                                src={fileData.url} 
-                                                alt="Portfolio image" 
+                                            <img
+                                                src={profileImageUrl}
+                                                alt="Portfolio image"
                                                 style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
                                             />
                                         </Box>
                                     )}
                                 </CardContent>
                             </Card>
-                            
+
                             <Card>
                                 <CardContent>
                                     <Typography variant="h6" color="primary" gutterBottom>
@@ -678,7 +596,7 @@ const CreatePortifolio = () => {
                                     </Typography>
                                 </CardContent>
                             </Card>
-                            
+
                             <Card>
                                 <CardContent>
                                     <Typography variant="h6" color="primary" gutterBottom>
@@ -689,13 +607,13 @@ const CreatePortifolio = () => {
                                     </Typography>
                                 </CardContent>
                             </Card>
-                            
+
                             <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
                                 <Button onClick={handleBack}>
                                     Back
                                 </Button>
-                                <Button 
-                                    onClick={handleSubmitAll} 
+                                <Button
+                                    onClick={handleSubmitAll}
                                     disabled={!portifolioId}
                                     variant="contained"
                                     color="success"
@@ -708,89 +626,65 @@ const CreatePortifolio = () => {
                         </Stack>
                     </Box>
                 );
-            
+
             default:
                 return 'Unknown step';
         }
     };
 
     return (
-        <Container maxWidth="md" sx={{ py: 4 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h3" component="h1">
-                    Create Complete Portfolio
-                </Typography>
-                <Button 
-                    variant="outlined" 
-                    onClick={() => router.push('/')}
-                >
-                    View Profiles
-                </Button>
-            </Box>
-
-            <Box sx={{ mb: 3 }}>
-                <FormControl fullWidth sx={{ minWidth: 240 }}>
-                    <InputLabel id="portfolio-select-label">Select Portfolio</InputLabel>
-                    <Select
-                        labelId="portfolio-select-label"
-                        value={portifolioId ?? ''}
-                        label="Select Portfolio"
-                        onChange={(e) => {
-                            const val = Number(e.target.value as unknown as string);
-                            setPortifolioId(isNaN(val) ? null : val);
-                            if (!isNaN(val)) {
-                                void router.push({ pathname: '/admin', query: { id: val } });
-                            }
-                        }}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {portfolios.map((p) => (
-                            <MenuItem key={p.id} value={p.id}>
-                                {p.name} {p.lastname} - {p.id}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-            </Box>
-            
-            {message && (
-                <Alert severity="success" sx={{ mb: 3 }}>
-                    {message}
-                </Alert>
-            )}
-
-            <Stepper activeStep={activeStep} orientation="vertical">
-                {steps.map((label, index) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                        <StepContent>
-                            {getStepContent(index)}
-                        </StepContent>
-                    </Step>
-                ))}
-            </Stepper>
-            
-            {activeStep === steps.length && (
-                <Paper square elevation={0} sx={{ p: 3 }}>
-                    <Typography variant="h5" gutterBottom>
-                        All steps completed - your portfolio has been submitted!
+        <div style={{ margin: '-10px' }}>
+            <NavBar />
+            <Container maxWidth="md" sx={{ py: 4 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                    <Typography variant="h3" component="h1">
+                        Create Complete Portfolio
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-                        <Button onClick={handleReset} variant="contained">
-                            Create Another Portfolio
-                        </Button>
-                        <Button 
-                            variant="outlined" 
-                            onClick={() => router.push('/portifolio')}
-                        >
-                            View Profiles
-                        </Button>
-                    </Box>
-                </Paper>
-            )}
-        </Container>
+                    <Button
+                        variant="outlined"
+                        onClick={() => router.push('/')}
+                    >
+                        View Profiles
+                    </Button>
+                </Box>
+
+                {message && (
+                    <Alert severity="success" sx={{ mb: 3 }}>
+                        {message}
+                    </Alert>
+                )}
+
+                <Stepper activeStep={activeStep} orientation="vertical">
+                    {steps.map((label, index) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                            <StepContent>
+                                {getStepContent(index)}
+                            </StepContent>
+                        </Step>
+                    ))}
+                </Stepper>
+
+                {activeStep === steps.length && (
+                    <Paper square elevation={0} sx={{ p: 3 }}>
+                        <Typography variant="h5" gutterBottom>
+                            All steps completed - your portfolio has been submitted!
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                            <Button onClick={handleReset} variant="contained">
+                                Create Another Portfolio
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                onClick={() => router.push('/portifolio')}
+                            >
+                                View Profiles
+                            </Button>
+                        </Box>
+                    </Paper>
+                )}
+            </Container>
+        </div>
     );
 }
 

@@ -1,8 +1,8 @@
 
+import { User } from '../users/users.entity';
 import { Experience } from '../Experience/experience.entity';
 import { HardSkill } from '../HardSkill/hardSkill.entity';
-import { File } from '../files/entities/file.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from 'typeorm';
 
 @Entity()
 export class Portifolio {
@@ -18,13 +18,15 @@ export class Portifolio {
   @Column({ type: 'text', nullable: true })
   aboutMe: string;
 
-  @OneToOne(() => File, { nullable: true })
-  @JoinColumn()
-  profileImage: File;
+  @Column({ type: 'text', nullable: true })
+  profileImageUrl: string;
 
-  @OneToMany(() => Experience, (experience) => experience.portifolio) 
+  @OneToMany(() => Experience, (experience) => experience.portifolio)
   experiences: Experience[]
 
   @OneToMany(() => HardSkill, (hardSkills) => hardSkills.portifolio)
   hardSkills: HardSkill[]
+
+  @OneToOne(() => User, (user) => user.portifolio)
+  user: User
 }

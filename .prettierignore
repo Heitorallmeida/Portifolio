@@ -1,0 +1,10 @@
+node_modules
+.next
+.out
+dist
+coverage
+build
+*.log
+*.lock
+.vscode
+.DS_Store

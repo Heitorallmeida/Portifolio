@@ -31,7 +31,7 @@ function Banner() {
             options={PARTICLES_OPTIONS}
           />
         }
-        {user?.profileImage?.url && <S.image width={500} height={400} src={user?.profileImage?.url} alt="Heitor imagem" />}
+        {user?.profileImageUrl && <S.image width={500} height={400} src={user.profileImageUrl} alt="Heitor imagem" />}
         <AnimatedText />
       </div>
     </S.bannerContainer>

@@ -30,11 +30,7 @@ interface Portfolio {
     id: number;
     name: string;
     lastname: string;
-    profileImage?: {
-        id: number;
-        filename: string;
-        url: string;
-    };
+    profileImageUrl?: string;
 }
 
 export default function Home() {
@@ -95,7 +91,7 @@ export default function Home() {
                                 }
                             }}
                         >
-                            Admin Panel
+                            Login or Register
                         </Button>
                     </Box>
                     <Paper elevation={3} sx={{ p: 4 }}>
@@ -159,9 +155,9 @@ export default function Home() {
                                                             width: 50,
                                                             height: 50,
                                                         }}
-                                                        src={portfolio.profileImage?.url}
+                                                        src={portfolio.profileImageUrl}
                                                     >
-                                                        {!portfolio.profileImage && <PersonIcon />}
+                                                        {!portfolio.profileImageUrl && <PersonIcon />}
                                                     </Avatar>
                                                 </ListItemAvatar>
                                                 <ListItemText
