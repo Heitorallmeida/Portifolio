@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useRouter } from 'next/router';
 import { getAccessTokenPayload, isExpiredToken } from '@/utils/auth';
+import { API_BASE } from '@/utils/fetcher';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ export default function Login() {
         setLoading(true);
         setErrorMessage('');
 
-        const url = isLogin ? 'http://localhost:3001/auth/login' : 'http://localhost:3001/auth/register';
+        const url = `${API_BASE}${isLogin ? '/auth/login' : '/auth/register'}`;
 
         try {
             const response = await fetch(url, {

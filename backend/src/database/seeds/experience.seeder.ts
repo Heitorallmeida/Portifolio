@@ -17,14 +17,6 @@ export class ExperienceSeeder {
       return;
     }
 
-    const existingExperiences = await experienceRepository.find({
-      where: { portifolio: { id: portifolio.id } },
-    });
-
-    if (existingExperiences.length > 0) {
-      await experienceRepository.remove(existingExperiences);
-    }
-
     const experiences = (experiencesData as any[]).map((exp: any) =>
       experienceRepository.create({
         initialDate: new Date(exp.initialDate),
@@ -36,7 +28,27 @@ export class ExperienceSeeder {
       })
     );
 
-    await experienceRepository.save(experiences);
-    console.log(`✅ ${experiences.length} experiences synchronized successfully`);
+    await dataSource.transaction(async (manager) => {
+      // Always replace the complete collection. This makes the seed idempotent:
+      // after any number of runs, this portfolio has exactly the JSON entries.
+      await manager
+        .createQueryBuilder()
+        .delete()
+        .from(Experience)
+        .where('"portifolioId" = :portifolioId', { portifolioId: portifolio.id })
+        .execute();
+
+      await manager.save(Experience, experiences);
+    });
+
+    const total = await experienceRepository.count({
+      where: { portifolio: { id: portifolio.id } },
+    });
+
+    if (total !== experiences.length) {
+      throw new Error(`Experience seed verification failed: expected ${experiences.length}, found ${total}`);
+    }
+
+    console.log(`✅ ${total} experiences synchronized successfully`);
   }
 }

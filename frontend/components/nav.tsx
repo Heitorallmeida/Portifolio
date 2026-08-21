@@ -5,8 +5,6 @@ import {
   Typography,
   MenuItem,
   Menu,
-  Snackbar,
-  SnackbarCloseReason,
 } from "@mui/material";
 import React, { useState } from "react";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
@@ -20,21 +18,26 @@ function Alert(props: AlertProps) {
 }
 
 function NavBar() {
+  const emailAddress = "Heitornmalmeida@gmail.com";
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const { language, setLanguage } = useLanguage();
 
-  const handleMailClick = () => {
-    setShowMessage(true);
-  };
+  const handleMailClick = async () => {
+    try {
+      if (!navigator.clipboard?.writeText) {
+        throw new Error("Clipboard API unavailable");
+      }
 
-  const handleMailMessageClose = (event: Event | React.SyntheticEvent<any, Event>, reason: SnackbarCloseReason) => {
-    if (reason === "clickaway") {
-      return;
+      await navigator.clipboard.writeText(emailAddress);
+      setShowMessage(true);
+      window.setTimeout(() => setShowMessage(false), 4000);
+    } catch {
+      window.location.href = `mailto:${emailAddress}`;
     }
 
-    setShowMessage(false);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -65,9 +68,7 @@ function NavBar() {
       </MenuItem>
       <MenuItem
         onClick={() => {
-          navigator.clipboard.writeText("Heitornmalmeida@gmail.com");
-          handleMailClick();
-          handleClose();
+          void handleMailClick();
         }}
       >
         Email
@@ -115,15 +116,13 @@ function NavBar() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Snackbar
-        open={showMessage}
-        autoHideDuration={6000}
-        onClose={handleMailMessageClose}
-      >
-        <Alert onClose={()=> setShowMessage(false)} severity="success">
+      {showMessage && (
+        <div style={{ position: "fixed", right: 24, bottom: 24, zIndex: 1400 }}>
+          <Alert onClose={() => setShowMessage(false)} severity="success">
           Email copiado com sucesso!
-        </Alert>
-      </Snackbar>
+          </Alert>
+        </div>
+      )}
       {renderMenu}
     </>
   );

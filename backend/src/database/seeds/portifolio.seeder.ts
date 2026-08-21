@@ -17,7 +17,7 @@ export class PortifolioSeeder {
       const portifolio = portifolioRepository.create({
         id: 1,
         name: 'Heitor',
-        lastname: 'Silva',
+        lastname: 'Almeida',
         profileImageUrl,
         role,
         aboutMe,
@@ -26,6 +26,8 @@ export class PortifolioSeeder {
       await portifolioRepository.save(portifolio);
       console.log('✅ Portifolio seeded successfully');
     } else {
+      existingPortifolio.name = 'Heitor';
+      existingPortifolio.lastname = 'Almeida';
       existingPortifolio.profileImageUrl = profileImageUrl;
       existingPortifolio.role = role;
       existingPortifolio.aboutMe = aboutMe;

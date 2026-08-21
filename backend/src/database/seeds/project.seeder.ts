@@ -14,14 +14,6 @@ export class ProjectSeeder {
       return;
     }
 
-    const existingProjects = await projectRepository.find({
-      where: { portifolio: { id: portifolio.id } },
-    });
-
-    if (existingProjects.length > 0) {
-      await projectRepository.remove(existingProjects);
-    }
-
     const projects = (projectsData as any[]).map((project) =>
       projectRepository.create({
         title: project.title,
@@ -38,7 +30,27 @@ export class ProjectSeeder {
       }),
     );
 
-    await projectRepository.save(projects);
-    console.log(`✅ ${projects.length} projects synchronized successfully`);
+    await dataSource.transaction(async (manager) => {
+      // Always replace the complete collection. This makes the seed idempotent:
+      // after any number of runs, this portfolio has exactly the JSON entries.
+      await manager
+        .createQueryBuilder()
+        .delete()
+        .from(Project)
+        .where('"portifolioId" = :portifolioId', { portifolioId: portifolio.id })
+        .execute();
+
+      await manager.save(Project, projects);
+    });
+
+    const total = await projectRepository.count({
+      where: { portifolio: { id: portifolio.id } },
+    });
+
+    if (total !== projects.length) {
+      throw new Error(`Project seed verification failed: expected ${projects.length}, found ${total}`);
+    }
+
+    console.log(`✅ ${total} projects synchronized successfully`);
   }
 }
