@@ -3,4 +3,5 @@ export class CreatePortifolioDto {
   lastname: string;
   profileImageUrl?: string;
   aboutMe?: string;
+  role?: string;
 }

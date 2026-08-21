@@ -18,7 +18,11 @@ export async function apiFetch<T = any>(path: string, init?: RequestInit): Promi
     headers['Content-Type'] = 'application/json'
   }
 
-  const res = await fetch(url, { ...init, headers })
+  const res = await fetch(url, {
+    ...init,
+    headers,
+    cache: init?.cache ?? (init?.method === 'GET' ? 'no-store' : undefined),
+  })
 
   // No content / Not modified — treat as successful empty response
   if (res.status === 204 || res.status === 304) {

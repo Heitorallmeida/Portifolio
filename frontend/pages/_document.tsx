@@ -4,8 +4,11 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
     export default class MyDocument extends Document {
       render() {
         return (
-          <Html lang="en">
-            <Head></Head>
+          <Html lang="pt-BR">
+            <Head>
+              <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+              <meta name="theme-color" content="#0b1120" />
+            </Head>
             <body>
               <Main />
               <NextScript />

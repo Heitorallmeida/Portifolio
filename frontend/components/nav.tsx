@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { GiBrazilFlag, GiUsaFlag } from "react-icons/gi";
+import Link from "next/link";
 import useLanguage from "../hooks/useLanguage";
 
 
@@ -76,11 +77,18 @@ function NavBar() {
 
   return (
     <>
-      <AppBar color="primary" position="sticky">
-        <Toolbar>
-          <div style={{ display: "flex"}}>
-            <Typography variant="h6" onClick={handleProfileMenuOpen}>
-              Language
+      <AppBar
+        position="sticky"
+        elevation={0}
+        sx={{ background: "rgba(11, 17, 32, 0.9)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(148, 163, 184, 0.16)" }}
+      >
+        <Toolbar sx={{ minHeight: "68px !important", width: "min(1180px, 100%)", mx: "auto", px: { xs: 2, md: 0 } }}>
+          <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "-0.04em", mr: { xs: 2, sm: 4 } }}>
+            HA<span style={{ color: "#67e8f9" }}>.</span>
+          </Typography>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="body2" sx={{ display: { xs: "none", sm: "block" }, color: "#cbd5e1", fontWeight: 700, mr: 1.5 }}>
+              {language === "pt-BR" ? "Idioma" : "Language"}
             </Typography>
             <GiUsaFlag
               color={language === "en" ? "blue" : "white"}
@@ -95,14 +103,15 @@ function NavBar() {
               onClick={() => setLanguage("pt-BR")}
             />
           </div>
+          <Link href="/" style={{ marginLeft: "auto", color: "#cbd5e1", fontSize: "0.875rem", fontWeight: 700, textDecoration: "none" }}>
+            {language === "pt-BR" ? "Portfólios" : "Portfolios"}
+          </Link>
           <Typography
-            variant="h6"
-            style={{ marginLeft: "auto",
-                textDecoration: "underline",
-                cursor: "pointer",}}
+            variant="body2"
+            sx={{ marginLeft: 3, color: "#67e8f9", fontWeight: 700, cursor: "pointer", "&:hover": { color: "#fff" } }}
             onClick={handleProfileMenuOpen}
           >
-            {language === "pt-BR" ? "Como me achar?" : "How to find me?"}
+            {language === "pt-BR" ? "Contato" : "Contact"}
           </Typography>
         </Toolbar>
       </AppBar>

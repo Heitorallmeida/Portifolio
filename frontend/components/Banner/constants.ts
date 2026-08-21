@@ -1,10 +1,8 @@
 export const PARTICLES_OPTIONS = {
   fullScreen: false,
-  style: { position: "relative", color: "white", height: "60vh !important" },
-  height: "60vh !important",
   fpsLimit: 60,
   background: {
-    color: "#000",
+    color: "transparent",
   },
   interactivity: {
     events: {
@@ -38,12 +36,12 @@ export const PARTICLES_OPTIONS = {
       density: {
         enable: true,
       },
-      value: 100,
+      value: 140,
     },
     opacity: {
       value: {
-        min: 0.5,
-        max: 0.7,
+        min: 0.15,
+        max: 0.5,
       },
       animation: {
         enable: true,

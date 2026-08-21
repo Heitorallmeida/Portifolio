@@ -17,29 +17,31 @@ export class HardSkillSeeder {
       return;
     }
 
-    const existingCount = await hardSkillRepository.count();
+    const existingHardSkills = await hardSkillRepository.find({
+      where: { portifolio: { id: portifolio.id } },
+    });
 
-    if (existingCount === 0) {
-      const hardSkills = (hardSkillsData as any[]).map((skill: any) =>
-        hardSkillRepository.create({
-          initialDate: new Date(skill.initialDate),
-          finishDate: new Date(skill.finishDate),
-          current: skill.current,
-          percentage: this.calculatePercentage(
-            new Date(skill.initialDate),
-            new Date(skill.finishDate),
-            skill.current
-          ),
-          title: skill.title,
-          portifolio: portifolio,
-        })
-      );
-
-      await hardSkillRepository.save(hardSkills);
-      console.log(`✅ ${hardSkills.length} hard skills seeded successfully`);
-    } else {
-      console.log('⏭️  Hard skills already exist, skipping...');
+    if (existingHardSkills.length > 0) {
+      await hardSkillRepository.remove(existingHardSkills);
     }
+
+    const hardSkills = (hardSkillsData as any[]).map((skill: any) =>
+      hardSkillRepository.create({
+        initialDate: new Date(skill.initialDate),
+        finishDate: new Date(skill.finishDate),
+        current: skill.current,
+        percentage: this.calculatePercentage(
+          new Date(skill.initialDate),
+          new Date(skill.finishDate),
+          skill.current
+        ),
+        title: skill.title,
+        portifolio: portifolio,
+      })
+    );
+
+    await hardSkillRepository.save(hardSkills);
+    console.log(`✅ ${hardSkills.length} hard skills synchronized successfully`);
   }
 
   private calculatePercentage(

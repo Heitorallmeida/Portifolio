@@ -4,6 +4,8 @@ import { join } from 'path';
 
 const databaseUrl = process.env.DATABASE_URL;
 const isUrl = !!databaseUrl;
+const databaseUrlHost = databaseUrl ? new URL(databaseUrl).hostname : undefined;
+const useSsl = isUrl && !['localhost', '127.0.0.1', '::1'].includes(databaseUrlHost ?? '');
 
 // Masked debug log to show which DB host is being used without leaking credentials
 if (process.env.NODE_ENV !== 'test') {
@@ -32,8 +34,10 @@ export const databaseProviders = [
 
       if (isUrl) {
         options.url = databaseUrl;
-        options.ssl = { rejectUnauthorized: false };
-        options.extra = { ssl: { rejectUnauthorized: false } };
+        if (useSsl) {
+          options.ssl = { rejectUnauthorized: false };
+          options.extra = { ssl: { rejectUnauthorized: false } };
+        }
       } else {
         options.host = process.env.DB_HOST || 'localhost';
         options.port = +(process.env.DB_PORT || 5432);

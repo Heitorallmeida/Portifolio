@@ -17,24 +17,26 @@ export class ExperienceSeeder {
       return;
     }
 
-    const existingCount = await experienceRepository.count();
+    const existingExperiences = await experienceRepository.find({
+      where: { portifolio: { id: portifolio.id } },
+    });
 
-    if (existingCount === 0) {
-      const experiences = (experiencesData as any[]).map((exp: any) =>
-        experienceRepository.create({
-          initialDate: new Date(exp.initialDate),
-          finishDate: new Date(exp.finishDate),
-          current: exp.current,
-          image: exp.image,
-          title: exp.title,
-          portifolio: portifolio,
-        })
-      );
-
-      await experienceRepository.save(experiences);
-      console.log(`✅ ${experiences.length} experiences seeded successfully`);
-    } else {
-      console.log('⏭️  Experiences already exist, skipping...');
+    if (existingExperiences.length > 0) {
+      await experienceRepository.remove(existingExperiences);
     }
+
+    const experiences = (experiencesData as any[]).map((exp: any) =>
+      experienceRepository.create({
+        initialDate: new Date(exp.initialDate),
+        finishDate: new Date(exp.finishDate),
+        current: exp.current,
+        image: exp.image,
+        title: exp.title,
+        portifolio: portifolio,
+      })
+    );
+
+    await experienceRepository.save(experiences);
+    console.log(`✅ ${experiences.length} experiences synchronized successfully`);
   }
 }

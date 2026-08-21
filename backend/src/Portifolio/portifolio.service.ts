@@ -10,19 +10,20 @@ export class PortifolioService {
   ) { }
 
   async findAll(): Promise<Portifolio[]> {
-    return this.portifolioRpository.find({ relations: ['experiences', 'hardSkills', 'profileImage'] });
+    return this.portifolioRpository.find({ relations: ['experiences', 'hardSkills', 'projects'] });
   }
 
   async findById(id): Promise<Portifolio> {
-    return this.portifolioRpository.findOne({ where: { id: id }, relations: ['experiences', 'hardSkills'] });
+    return this.portifolioRpository.findOne({ where: { id: id }, relations: ['experiences', 'hardSkills', 'projects'] });
   }
 
-  async create(name: string, lastname: string, profileImageUrl?: string, aboutMe?: string): Promise<Portifolio> {
+  async create(name: string, lastname: string, profileImageUrl?: string, aboutMe?: string, role?: string): Promise<Portifolio> {
     const portifolio = new Portifolio();
 
     portifolio.name = name;
     portifolio.lastname = lastname;
     portifolio.aboutMe = aboutMe;
+    portifolio.role = role;
 
     portifolio.profileImageUrl = profileImageUrl || null;
 
@@ -35,11 +36,13 @@ export class PortifolioService {
     lastname: string,
     profileImageUrl?: string,
     aboutMe?: string,
+    role?: string,
   ): Promise<UpdateResult> {
     const updateData: Partial<Portifolio> = {
       name,
       lastname,
       aboutMe,
+      role,
       profileImageUrl: profileImageUrl || null,
     };
 

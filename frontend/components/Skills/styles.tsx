@@ -7,6 +7,20 @@ type StyledDivProps = {
   percentage: number;
 }
 
+type ProgressBarProps = {
+  $active: boolean;
+  $color: string;
+  percentage: number;
+};
+
+export const progressBar = styled.div<ProgressBarProps>`
+  width: ${({ $active, percentage }) => ($active ? `${percentage}%` : "0%")};
+  height: 100%;
+  border-radius: inherit;
+  background-color: ${({ $color }) => $color};
+  transition: width 1s ease-out;
+`;
+
 export const boxAngular = styled.div<StyledDivProps>`
   @keyframes angular {
     from {
@@ -104,8 +118,8 @@ export const boxReact = styled.div<StyledDivProps>`
 export const skillsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-self: center;
-  width: 100vw;
+  width: min(760px, 100%);
+  padding: 4.5rem 0;
 `;
 
 export const divider = styled.hr`
@@ -113,26 +127,25 @@ export const divider = styled.hr`
 `;
 
 export const div = styled.div`
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding: 2rem max(1.5rem, calc((100vw - 1180px) / 2));
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+  background: linear-gradient(135deg, #0f3040 0%, #182335 48%, #542d3f 100%);
+  box-shadow: none;
   @media (max-width: 890px) {
     flex-direction: column;
-    padding-left: 0rem;
-    padding-right: 0rem;
-    padding-bottom: 3rem;
+    align-items: flex-start;
+    gap: 0;
+    padding-bottom: 1rem;
   }
-  background: linear-gradient(to right, #1d4350, #a43931);
-  box-shadow: 4px 4px 4px #ffe3ec;
 `;
 export const defaultBox = styled.div`
-  height: 1rem;
-  width: 40vw;
-  background-color: #fdfdfd;
-  border-radius: 5px;
-  margin-left: 1rem;
-  align-self: center;
+  height: 0.72rem;
+  flex: 1;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
 `;
 
 export const firstText = styled(Typography)<StyledDivProps>`
@@ -148,56 +161,51 @@ export const firstText = styled(Typography)<StyledDivProps>`
   animation-name: ${(props) => props.animation};
   animation-fill-mode: forwards;
   animation-duration: 1s;
-  font-weight: bold;
+  font-weight: 700;
   color: white;
+  font-size: clamp(2.4rem, 4vw, 4rem) !important;
+  line-height: 1 !important;
 `;
 
 export const markRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0.5rem;
-  margin-left: 3vw;
-  width: 45vw;
-  justify-content: space-between;
-  text-align: end;
-  @media (max-width: 800px) {
-    margin-left: 37vw;
-  }
+  display: none;
 `;
 
 export const titleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
-  margin-left: 4rem;
+  min-width: 190px;
   @media (max-width: 500px) {
-    margin-top: 2rem;
-    margin-left: 2rem;
+    min-width: 0;
   }
 `;
 
 export const row = styled.div`
   display: flex;
-  flex-direction: row;
-  margin: 0.5rem;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0.75rem 0;
   @media (max-width: 800px) {
-    justify-content: space-evenly;
+    gap: 0.85rem;
   }
 `;
 
 export const secondText = styled(Typography)`
-  margin: 1rem 2rem 2rem 4rem;
-  font-weight: bold;
-  color: #f40021;
+  margin: 0.5rem 0 0;
+  font-weight: 700;
+  color: #67e8f9;
+  font-size: clamp(2.4rem, 4vw, 4rem) !important;
+  line-height: 1 !important;
   @media (max-width: 600px) {
     margin-top: 0rem;
   }
 `;
 
 export const skill = styled(Typography)`
-  font-weight: bold;
-  width: 7vw;
-  color: white;
+  width: 130px;
+  color: #e2e8f0;
+  font-weight: 600;
+  @media (max-width: 500px) { width: 94px; font-size: 0.9rem !important; }
 `;
 
 export const smallDivider = styled.hr`

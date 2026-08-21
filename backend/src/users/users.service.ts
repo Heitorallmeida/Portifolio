@@ -13,7 +13,10 @@ export class UsersService {
   ) { }
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ where: { email: username } });
+    return this.usersRepository.findOne({
+      where: { email: username },
+      relations: ['portifolio'],
+    });
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -32,5 +35,20 @@ export class UsersService {
     user.password = hashed;
 
     return this.usersRepository.save(user);
+  }
+
+  async registerFailedLogin(user: User): Promise<boolean> {
+    user.failedLoginAttempts += 1;
+    if (user.failedLoginAttempts >= 3) {
+      user.isLocked = true;
+    }
+    await this.usersRepository.save(user);
+    return user.isLocked;
+  }
+
+  async resetLoginAttempts(user: User): Promise<void> {
+    if (user.failedLoginAttempts === 0) return;
+    user.failedLoginAttempts = 0;
+    await this.usersRepository.save(user);
   }
 }

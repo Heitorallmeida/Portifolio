@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import CloseIcon from '@mui/icons-material/Close';
 import {
     Container,
     Typography,
@@ -15,7 +14,6 @@ import {
     CircularProgress,
     Alert,
     Paper,
-    Divider,
     Button
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
@@ -24,7 +22,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useRouter } from "next/router";
 import NavBar from "../components/nav";
 import Layout from "./layout";
-import { apiGet, apiDelete } from "../utils/fetcher";
+import { apiGet } from "../utils/fetcher";
 
 interface Portfolio {
     id: number;
@@ -60,24 +58,20 @@ export default function Home() {
         }
     };
 
-    function handleDelete(id: number): void {
-        apiDelete(`/portifolio/${id}`).then(() => {
-            setPortfolios((prevPortfolios) => prevPortfolios.filter((portfolio) => portfolio.id !== id));
-        }).catch((err) => {
-            console.error("Error deleting portfolio:", err);
-        });
-    }
-
     return (
         <Layout>
             <NavBar />
-                <Container maxWidth="md" sx={{ py: 8 }}>
-                    <Box sx={{ mb: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 } }}>
+                    <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+                        <Box>
+                            <Typography variant="overline" sx={{ color: '#0891b2', fontWeight: 800, letterSpacing: '0.14em' }}>PORTFOLIO DIRECTORY</Typography>
+                            <Typography variant="h4" component="h1" sx={{ fontWeight: 800, letterSpacing: '-0.04em' }}>Explore published portfolios</Typography>
+                        </Box>
                         <Button
                             variant="contained"
                             color="primary"
                             startIcon={<AdminPanelSettingsIcon />}
-                            onClick={() => router.push('/admin')}
+                            onClick={() => router.push('/login')}
                             sx={{
                                 px: 3,
                                 py: 1.5,
@@ -91,20 +85,20 @@ export default function Home() {
                                 }
                             }}
                         >
-                            Login or Register
+                            Create or manage my portfolio
                         </Button>
                     </Box>
-                    <Paper elevation={3} sx={{ p: 4 }}>
+                    <Paper elevation={0} sx={{ p: { xs: 2.5, md: 4 }, border: '1px solid #e2e8f0', borderRadius: 4, boxShadow: '0 20px 45px rgba(15, 23, 42, 0.08)' }}>
                         <Typography
-                            variant="h3"
-                            component="h1"
+                            variant="h5"
+                            component="h2"
                             gutterBottom
                             sx={{
                                 fontWeight: 'bold',
                                 mb: 3
                             }}
                         >
-                            Portfolios
+                            Find a portfolio
                         </Typography>
                         
                         <Typography
@@ -114,7 +108,7 @@ export default function Home() {
                                 mb: 4
                             }}
                         >
-                            Select a portfolio to view details
+                            Choose a profile below to view its experience, skills, and featured work. To build or edit your own, use the workspace button above.
                         </Typography>
 
                         {loading && (
@@ -131,7 +125,7 @@ export default function Home() {
 
                         {!loading && !error && portfolios.length === 0 && (
                             <Alert severity="info">
-                                No portfolios found. Create one to get started!
+                                No published portfolios yet. Create your own portfolio workspace to get started.
                             </Alert>
                         )}
 
@@ -172,7 +166,6 @@ export default function Home() {
                                                         </Typography>
                                                     }
                                                 />
-                                                <CloseIcon sx={{ color: 'text.secondary' }} onClick={(e) => { e.stopPropagation(); handleDelete(portfolio.id); }} />
                                                 <ArrowForwardIosIcon sx={{ color: 'text.secondary' }} />
                                             </ListItemButton>
                                         </Box>

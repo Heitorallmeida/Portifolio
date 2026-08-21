@@ -23,6 +23,10 @@ import { FilesService } from './files/files.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { usersProviders } from './users/users.providers';
+import { ProjectController } from './Project/project.controller';
+import { ProjectModule } from './Project/project.module';
+import { projectProviders } from './Project/project.providers';
+import { ProjectService } from './Project/project.service';
 
 @Module({
   imports: [
@@ -33,8 +37,9 @@ import { usersProviders } from './users/users.providers';
     FilesModule,
     AuthModule,
     UsersModule,
+    ProjectModule,
   ],
-  controllers: [AppController, PortifolioController, ExperienceController, HardSkillController, FilesController],
-  providers: [...portifolioProviders, ...fileProviders, ...experienceProviders, ...databaseProviders, ...hardSkillProviders, ...usersProviders, AppService, PortifolioService, ExperienceService, HardSkillService, FilesService],
+  controllers: [AppController, PortifolioController, ExperienceController, HardSkillController, FilesController, ProjectController],
+  providers: [...portifolioProviders, ...fileProviders, ...experienceProviders, ...databaseProviders, ...hardSkillProviders, ...projectProviders, ...usersProviders, AppService, PortifolioService, ExperienceService, HardSkillService, FilesService, ProjectService],
 })
 export class AppModule { }

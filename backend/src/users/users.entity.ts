@@ -13,6 +13,12 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: 0 })
+  failedLoginAttempts: number;
+
+  @Column({ default: false })
+  isLocked: boolean;
+
   @OneToOne(() => Portifolio, (portifolio) => portifolio.user, { onDelete: 'CASCADE' })
   portifolio: Portifolio
 }

@@ -1,9 +1,11 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as S from "./styles";
 import {  HardSkillObject } from "@/api/hardSkill/experience.type";
 import useUser from "@/hooks/useUser";
 import { calculateYearsOfExperience } from "@/utils/experienceCalculator";
+
+const skillColors = ["#61dafb", "#d60029", "#31b9f5", "#5382a1", "#982633"];
 
 function Skills() {
   const { user } = useUser();
@@ -11,30 +13,25 @@ function Skills() {
   const [hardSkills, setHardSkills] = useState<HardSkillObject | undefined>(undefined);
   const [yearsOfExperience, setYearsOfExperience] = useState<number>(0);
 
-  console.log(user)
-
-
-
-
   const inputEl = useRef<HTMLDivElement | null>(null);
 
-  const handleScroll = useCallback(() => {
-    const position = window.pageYOffset;
-    if (inputEl?.current?.offsetTop !== undefined) {
-      const divPosition =
-        inputEl?.current?.offsetTop - inputEl?.current?.scrollHeight;
-      if (position * 1.5 > divPosition) {
-        setActiveAnimation(true);
-        window.removeEventListener("scroll", handleScroll);
-      }
-    }
-  }, []);
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-  }, [handleScroll]);
+    const element = inputEl.current;
+    if (!element) return;
 
-  
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActiveAnimation(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   
   useEffect(() => {
@@ -42,14 +39,11 @@ function Skills() {
       setHardSkills(user.hardSkills)
       if(user.experiences){
         const years = calculateYearsOfExperience(user.experiences);
-        console.info(years)
         setYearsOfExperience(years);
       }
     }
      
   }, [user]);
-
-  console.info(yearsOfExperience)
 
   return (
     <>
@@ -74,17 +68,17 @@ function Skills() {
               <S.skill key={i} variant="h6">{i + 1}</S.skill>
             ))}
           </S.markRow>
-          {hardSkills && Object.entries(hardSkills).map(([skillName, percentage]) => {
-            const skillKey = skillName.toLowerCase();
-            const BoxComponent = (S as any)[`box${skillName}`] || S.boxAngular;
+          {hardSkills && Object.entries(hardSkills).map(([skillName, percentage], index) => {
+            const normalizedPercentage = Math.min(100, Math.max(0, Number(percentage) || 0));
             
             return (
               <S.row key={skillName}>
                 <S.skill variant="h6">{skillName}</S.skill>
                 <S.defaultBox>
-                  <BoxComponent
-                    animation={activeAnimation ? skillKey : "none"}
-                    percentage={percentage}
+                  <S.progressBar
+                    $active={activeAnimation}
+                    $color={skillColors[index % skillColors.length]}
+                    percentage={normalizedPercentage}
                   />
                 </S.defaultBox>
               </S.row>

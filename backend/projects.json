@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Portifolio Generator",
+    "description": "A responsive platform for creating, managing, and publishing professional portfolios featuring experience, skills, and projects.",
+    "image": "portifolio.png",
+    "repositoryUrl": "https://github.com/Heitorallmeida/Portifolio",
+    "liveUrl": null,
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "Styled Components"
+    ],
+    "initialDate": "2026-08-01T00:00:00.000Z",
+    "finishDate": null,
+    "current": true,
+    "featured": true
+  },
+  {
+    "title": "SebraePlay",
+    "description": "An educational platform offering entrepreneurial content, courses, and learning resources for small-business owners.",
+    "image": "sebrae.png",
+    "repositoryUrl": null,
+    "liveUrl": null,
+    "technologies": [],
+    "initialDate": "2022-02-01T00:00:00.000Z",
+    "finishDate": "2022-10-01T00:00:00.000Z",
+    "current": false,
+    "featured": true
+  },
+  {
+    "title": "Áurea Psi",
+    "description": "A digital mental health platform designed to provide a simple, welcoming experience for managing psychological care.",
+    "image": "aurea.png",
+    "repositoryUrl": null,
+    "liveUrl": null,
+    "technologies": [],
+    "initialDate": "2022-02-01T00:00:00.000Z",
+    "finishDate": "2022-10-01T00:00:00.000Z",
+    "current": false,
+    "featured": true
+  }
+]

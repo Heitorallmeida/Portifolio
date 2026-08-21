@@ -1,30 +1,31 @@
 import { CardContent, Typography } from "@mui/material";
-import { StaticImageData } from "next/image";
-import { CardMediaStyled, CardStyle } from "./styles";
+import { resolveImageSrc } from "@/utils/image";
+import { CardMediaStyled, CardStyle, CurrentBadge, Meta } from "./styles";
 
 interface ExperienceItemProps {
   name: string;
   image: string;
+  initialDate: string;
+  finishDate: string;
   current?: boolean;
 }
 
-function ExperienceItem(props: ExperienceItemProps) {
-  const { name, image, current } = props;
+function ExperienceItem({ name, image, initialDate, finishDate, current }: ExperienceItemProps) {
+  const formatDate = (date: string) => new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric" }).format(new Date(date));
+  const imageSrc = resolveImageSrc(image);
+
   return (
-    <CardStyle 
-      style={{
-        border: current ? "solid" : "none",
-        borderWidth: current ? "thin" : "none",
-        borderColor:
-        current ? "cornflowerblue" : "none"}}
-    >
-        <CardMediaStyled image={image} />
+    <CardStyle $current={Boolean(current)}>
+      <CardMediaStyled src={imageSrc} alt={`Logo da ${name}`} />
       <CardContent>
+        <Meta>
+          <span>{formatDate(initialDate)} - {current ? "Atual" : formatDate(finishDate)}</span>
+          {current && <CurrentBadge>ATUAL</CurrentBadge>}
+        </Meta>
         <Typography
           gutterBottom
           variant="h5"
           component="h2"
-          style={{ fontWeight: "bold" }}
         >
           {name}
         </Typography>

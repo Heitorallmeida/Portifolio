@@ -1,10 +1,9 @@
 "use client";
-import imagem from "static/images/eu.jpeg";
 import React from "react";
 import { useEffect } from "react";
 import * as S from "./styles";
-import type { Portifolio } from "@/api/portifolio/portifolio.types";
 import useUser from "@/hooks/useUser";
+import useLanguage from "@/hooks/useLanguage";
 import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import AnimatedText from "./components/AnimatedText";
@@ -12,28 +11,44 @@ import { PARTICLES_OPTIONS } from "./constants";
 
 function Banner() {
   const { user } = useUser();
+  const { language } = useLanguage();
 
-    useEffect(() => {
-        initParticlesEngine(async (engine) => {
-            await loadSlim(engine);
-        });
-    }, []);
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    });
+  }, []);
 
 
   return (
     <S.bannerContainer>
-      <div>
-        {
-          <S.particles
-            id="tsparticles"
-            style={{ position: "relative", color: "white", height: "60vh !important" }}
-            className={"canvas"}
-            options={PARTICLES_OPTIONS}
+      <S.particles id="tsparticles" options={PARTICLES_OPTIONS} />
+      <S.heroContent>
+        {user?.profileImageUrl && (
+          <S.image
+            width={480}
+            height={480}
+            src={user.profileImageUrl}
+            alt="Foto de perfil de Heitor Almeida"
+            priority
+            unoptimized
           />
-        }
-        {user?.profileImageUrl && <S.image width={500} height={400} src={user.profileImageUrl} alt="Heitor imagem" />}
-        <AnimatedText />
-      </div>
+        )}
+        <S.intro>
+          <S.eyebrow>{user?.role || "SOFTWARE ENGINEER"}</S.eyebrow>
+          <AnimatedText />
+          <S.description>
+            {user?.aboutMe || ""}
+          </S.description>
+          <S.portfolioLink href="/">
+            {language === "pt-BR" ? "Explorar portfólios" : "Explore portfolios"}
+            <span aria-hidden="true">→</span>
+          </S.portfolioLink>
+          <S.generatorNote>
+            {language === "pt-BR" ? "Um portfólio criado com a plataforma Portifolio." : "A portfolio created with the Portifolio platform."}
+          </S.generatorNote>
+        </S.intro>
+      </S.heroContent>
     </S.bannerContainer>
   );
 }

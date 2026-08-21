@@ -3,6 +3,8 @@ import { join } from 'path';
 
 const databaseUrl = process.env.DATABASE_URL;
 const isUrl = !!databaseUrl;
+const databaseUrlHost = databaseUrl ? new URL(databaseUrl).hostname : undefined;
+const useSsl = isUrl && !['localhost', '127.0.0.1', '::1'].includes(databaseUrlHost ?? '');
 
 // Helpful debug info when running in production (will not print the full URL)
 if (isUrl && process.env.NODE_ENV !== 'test') {
@@ -26,7 +28,7 @@ export const AppDataSource = new DataSource({
   entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
   migrations: [join(__dirname, './migrations/*{.ts,.js}')],
   synchronize: false,
-  ...(isUrl
+  ...(useSsl
     ? ({
         ssl: { rejectUnauthorized: false } as any,
         extra: { ssl: { rejectUnauthorized: false } },
